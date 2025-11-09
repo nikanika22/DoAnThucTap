@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <!-- Poster phim -->
+    <ImageView
+        android:id="@+id/imgPoster"
+        android:layout_width="140dp"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile"
+        android:background="#444444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Nút Đặt vé (canh phải, giữa poster) -->
+    <Button
+        android:id="@+id/btnDatVe"
+        android:layout_width="72dp"
+        android:layout_height="36dp"
+        android:text="Đặt vé"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        android:backgroundTint="@drawable/green_bg"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgPoster"
+        app:layout_constraintBottom_toBottomOf="@id/imgPoster" />
+
+    <!-- Tên phim -->
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="atlas"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:maxLines="1"
+        app:layout_constraintStart_toEndOf="@id/imgPoster"
+        app:layout_constraintTop_toTopOf="@id/imgPoster"
+        app:layout_constraintEnd_toStartOf="@id/btnDatVe" />
+
+    <!-- Thể loại -->
+    <TextView
+        android:id="@+id/txtGenre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Hành động, Phiêu lưu"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="@id/txtTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle"
+        app:layout_constraintEnd_toStartOf="@id/btnDatVe" />
+
+    <!-- Thời lượng -->
+    <TextView
+        android:id="@+id/txtDuration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="150 phút"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="@id/txtTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtGenre"
+        app:layout_constraintEnd_toStartOf="@id/btnDatVe" />
+
+    <!-- Độ tuổi -->
+    <TextView
+        android:id="@+id/txtRated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C16"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgPoster"
+        app:layout_constraintStart_toStartOf="@id/txtTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtDuration" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
