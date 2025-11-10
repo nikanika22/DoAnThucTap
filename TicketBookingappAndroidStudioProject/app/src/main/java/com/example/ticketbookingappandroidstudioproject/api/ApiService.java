@@ -17,7 +17,7 @@ public interface ApiService {
     //http://127.0.0.1:8000/api/login
     Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     ApiService apiService= new Retrofit.Builder()
-            .baseUrl("http://127.0.0.1:8000/api/")
+            .baseUrl("http://10.0.2.2:8000/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
