@@ -1,8 +1,7 @@
 package com.example.ticketbookingappandroidstudioproject.model;
 
 import com.google.gson.annotations.SerializedName;
-
-public class LoginData {
+public class RegisterData {
     @SerializedName("success")
     private boolean success;
 
@@ -10,10 +9,10 @@ public class LoginData {
     private String message;
 
     @SerializedName("data")
-    private Data data;
+    private DataRegister data;
 
     // Inner class for nested "data" object
-    public static class Data {
+    public class DataRegister {
         private Account account;
         private String token;
 
@@ -35,7 +34,7 @@ public class LoginData {
         return message;
     }
 
-    public Data getData() {
+    public DataRegister getData() {
         return data;
     }
 }

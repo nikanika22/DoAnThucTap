@@ -2,6 +2,8 @@ package com.example.ticketbookingappandroidstudioproject.api;
 
 import com.example.ticketbookingappandroidstudioproject.model.LoginData;
 import com.example.ticketbookingappandroidstudioproject.model.LoginRequest;
+import com.example.ticketbookingappandroidstudioproject.model.RegisterData;
+import com.example.ticketbookingappandroidstudioproject.model.RegisterRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -24,4 +26,7 @@ public interface ApiService {
 
     @POST("login")
     Call<LoginData> sendLoginRequest(@Body LoginRequest loginRequest);
+
+    @POST("register")
+    Call<RegisterData> sendRegisterRequest(@Body RegisterRequest registerRequest);
 }
