@@ -8,6 +8,7 @@
     <!-- Poster phim -->
     <ImageView
         android:id="@+id/imgPoster"
+        android:clickable="true"
         android:layout_width="140dp"
         android:layout_height="90dp"
         android:scaleType="centerCrop"
@@ -19,6 +20,7 @@
     <!-- Nút Đặt vé (canh phải, giữa poster) -->
     <ImageView
         android:id="@+id/btnSua"
+        android:clickable="true"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/icon_sua"
