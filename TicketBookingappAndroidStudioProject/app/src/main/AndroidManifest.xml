@@ -16,6 +16,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".admin.activity.UpdateMovieActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.activity.AddMovieActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.activity.MainAdminActivity"
             android:exported="false" />
         <activity

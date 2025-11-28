@@ -2,6 +2,7 @@ package com.example.ticketbookingappandroidstudioproject.api;
 
 import com.example.ticketbookingappandroidstudioproject.admin.data.MovieData;
 import com.example.ticketbookingappandroidstudioproject.admin.data.MoviesData;
+import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
 import com.example.ticketbookingappandroidstudioproject.model.LoginData;
 import com.example.ticketbookingappandroidstudioproject.model.LoginRequest;
 import com.example.ticketbookingappandroidstudioproject.model.RegisterData;
@@ -43,7 +44,7 @@ public interface ApiService {
     Call<MoviesData> getMovies(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
 
     @POST("movies")
-    Call<MoviesData> addMovie(@Header("Authorization") String authToken, @Body MovieData newMovie);
+    Call<MovieData> addMovie(@Header("Authorization") String authToken, @Body Movie movie);
 
     @DELETE("movies/{id}")
     Call<Void> deleteMovie(@Header("Authorization") String authToken, @Path("id") int movieId);
