@@ -80,6 +80,9 @@ public class MyMovieAdapter extends ArrayAdapter<Movie> {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, UpdateMovieActivity.class);
+                intent.putExtra("movie", movie);
+                context.startActivity(intent);
             }
         });
 
