@@ -3,17 +3,15 @@ package com.example.ticketbookingappandroidstudioproject.admin.data;
 import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collection;
-
-public class MovieData {
+public class ApiResponse<T> {
     @SerializedName("success")
-    private boolean success;
+    boolean success;
 
     @SerializedName("message")
-    private String message;
+    String message;
 
     @SerializedName("data")
-    private Movie data;
+    T data;
 
     public boolean isSuccess() {
         return success;
@@ -23,7 +21,7 @@ public class MovieData {
         return message;
     }
 
-    public Movie getData() {
+    public T getData() {
         return data;
     }
 }

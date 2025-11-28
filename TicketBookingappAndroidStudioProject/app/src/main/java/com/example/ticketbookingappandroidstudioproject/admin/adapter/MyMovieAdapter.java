@@ -18,8 +18,6 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.example.ticketbookingappandroidstudioproject.R;
 import com.example.ticketbookingappandroidstudioproject.admin.activity.UpdateMovieActivity;
-import com.example.ticketbookingappandroidstudioproject.admin.data.MovieData;
-import com.example.ticketbookingappandroidstudioproject.admin.data.MoviesData;
 import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
 import com.example.ticketbookingappandroidstudioproject.api.ApiService;
 
@@ -82,6 +80,7 @@ public class MyMovieAdapter extends ArrayAdapter<Movie> {
             public void onClick(View view) {
                 Intent intent = new Intent(context, UpdateMovieActivity.class);
                 intent.putExtra("movie", movie);
+                intent.putExtra("id", movie.getId());
                 context.startActivity(intent);
             }
         });

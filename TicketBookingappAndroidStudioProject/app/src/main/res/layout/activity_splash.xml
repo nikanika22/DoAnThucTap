@@ -38,7 +38,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="cinema Ticket Booking"
+        android:text="Cinema Ticket Booking"
         android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold|italic"

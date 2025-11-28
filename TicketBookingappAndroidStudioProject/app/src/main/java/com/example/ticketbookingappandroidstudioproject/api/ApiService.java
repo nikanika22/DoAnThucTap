@@ -1,6 +1,6 @@
 package com.example.ticketbookingappandroidstudioproject.api;
 
-import com.example.ticketbookingappandroidstudioproject.admin.data.MovieData;
+import com.example.ticketbookingappandroidstudioproject.admin.data.ApiResponse;
 import com.example.ticketbookingappandroidstudioproject.admin.data.MoviesData;
 import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
 import com.example.ticketbookingappandroidstudioproject.model.LoginData;
@@ -28,7 +28,7 @@ public interface ApiService {
 
     //http://127.0.0.1:8000/api/login
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-    ApiService apiService= new Retrofit.Builder()
+    ApiService apiService = new Retrofit.Builder()
             .baseUrl("http://10.0.2.2:8000/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
@@ -44,11 +44,11 @@ public interface ApiService {
     Call<MoviesData> getMovies(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
 
     @POST("movies")
-    Call<MovieData> addMovie(@Header("Authorization") String authToken, @Body Movie movie);
+    Call<ApiResponse> addMovie(@Header("Authorization") String authToken, @Body Movie movie);
 
     @DELETE("movies/{id}")
     Call<Void> deleteMovie(@Header("Authorization") String authToken, @Path("id") int movieId);
 
     @PUT("movies/{id}")
-    Call<MovieData> updateMovie(@Header("Authorization") String authToken, @Path("id") int movieId, @Body MovieData updatedMovie);
+    Call<ApiResponse> updateMovie(@Header("Authorization") String authToken, @Path("id") int movieId, @Body Movie movie);
 }

@@ -16,7 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ticketbookingappandroidstudioproject.R;
-import com.example.ticketbookingappandroidstudioproject.admin.data.MovieData;
+import com.example.ticketbookingappandroidstudioproject.admin.data.ApiResponse;
 import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
 import com.example.ticketbookingappandroidstudioproject.api.ApiService;
 
@@ -39,9 +39,9 @@ public class UpdateMovieActivity extends AppCompatActivity {
             return insets;
         });
         addControls();
-        addEvents();
 
         Movie movie = (Movie) getIntent().getSerializableExtra("movie");
+        int movieId = getIntent().getIntExtra("id", -1);
         if (movie != null) {
             edtTitle.setText(movie.getTitle());
             edtDuration.setText(movie.getDuration_min());
@@ -53,7 +53,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateMovie();
+                updateMovie(movieId);
             }
         });
     }
@@ -67,16 +67,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
         btnUpdate = findViewById(R.id.add);
     }
 
-    private void addEvents() {
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateMovie();
-            }
-        });
-    }
-
-    private void updateMovie() {
+    private void updateMovie(int movieId) {
         String title = edtTitle.getText().toString().trim();
         String duration = edtDuration.getText().toString().trim();
         String genre = edtGenre.getText().toString().trim();
@@ -97,9 +88,9 @@ public class UpdateMovieActivity extends AppCompatActivity {
 
         if (authToken != null) {
             String bearerToken = "Bearer " + authToken;
-            ApiService.apiService.addMovie(bearerToken, new Movie(title, duration, genre, poster, rating)).enqueue(new Callback<MovieData>() {
+            ApiService.apiService.updateMovie(bearerToken, movieId, new Movie(title, duration, genre, poster, rating)).enqueue(new Callback<ApiResponse>() {
                 @Override
-                public void onResponse(Call<MovieData> call, Response<MovieData> response) {
+                public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         Toast.makeText(UpdateMovieActivity.this, "Movie updated successfully.", Toast.LENGTH_SHORT).show();
                         finish();
@@ -109,7 +100,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<MovieData> call, Throwable t) {
+                public void onFailure(Call<ApiResponse> call, Throwable t) {
                     Toast.makeText(UpdateMovieActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
