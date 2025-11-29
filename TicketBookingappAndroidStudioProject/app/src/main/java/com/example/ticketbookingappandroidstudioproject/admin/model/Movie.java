@@ -10,6 +10,8 @@ public class Movie implements Serializable {
     private String poster;
     private String rating_code;
 
+    private boolean is_active;
+
     public int getId() {
         return id;
     }
@@ -58,11 +60,20 @@ public class Movie implements Serializable {
         this.rating_code = rating_code;
     }
 
-    public Movie(String title, String duration_min, String genre, String poster, String rating_code) {
+    public boolean isIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(boolean is_active) {
+        this.is_active = is_active;
+    }
+
+    public Movie(String title, String duration_min, String genre, String poster, String rating_code, Boolean is_active) {
         this.title = title;
         this.duration_min = duration_min;
         this.genre = genre;
         this.poster = poster;
         this.rating_code = rating_code;
+        this.is_active = is_active;
     }
 }

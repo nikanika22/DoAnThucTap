@@ -81,7 +81,7 @@ public class AddMovieActivity extends AppCompatActivity {
 
         if (authToken != null) {
             String bearerToken = "Bearer " + authToken;
-            ApiService.apiService.addMovie(bearerToken, new Movie(title, duration, genre, poster, rating)).enqueue(new Callback<ApiResponse>() {
+            ApiService.apiService.addMovie(bearerToken, new Movie(title, duration, genre, poster, rating, true)).enqueue(new Callback<ApiResponse>() {
                 @Override
                 public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {

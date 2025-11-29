@@ -2,7 +2,9 @@ package com.example.ticketbookingappandroidstudioproject.api;
 
 import com.example.ticketbookingappandroidstudioproject.admin.data.ApiResponse;
 import com.example.ticketbookingappandroidstudioproject.admin.data.MoviesData;
+import com.example.ticketbookingappandroidstudioproject.admin.data.ScreensData;
 import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
+import com.example.ticketbookingappandroidstudioproject.admin.model.Screen;
 import com.example.ticketbookingappandroidstudioproject.model.LoginData;
 import com.example.ticketbookingappandroidstudioproject.model.LoginRequest;
 import com.example.ticketbookingappandroidstudioproject.model.RegisterData;
@@ -51,4 +53,16 @@ public interface ApiService {
 
     @PUT("movies/{id}")
     Call<ApiResponse> updateMovie(@Header("Authorization") String authToken, @Path("id") int movieId, @Body Movie movie);
+
+    @DELETE("screens/{id}")
+    Call<Void> deleteScreen(@Header("Authorization") String authToken, @Path("id") int screenId);
+
+    @PUT("screens/{id}")
+    Call<ApiResponse> updateScreen(@Header("Authorization") String authToken, @Path("id") int screenId, @Body Screen screen);
+
+    @GET("screens")
+    Call<ScreensData> getScreens(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
+
+    @POST("screens")
+    Call<ApiResponse> addScreen(@Header("Authorization") String authToken, @Body Screen screen);
 }

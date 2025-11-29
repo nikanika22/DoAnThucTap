@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".admin.activity.UpdateMovieActivity">
+    tools:context=".admin.activity.EditScreenActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,10 +16,10 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Title : " />
+            android:text="Code : " />
 
         <EditText
-            android:id="@+id/title"
+            android:id="@+id/code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -33,10 +33,10 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Duration : " />
+            android:text="Name : " />
 
         <EditText
-            android:id="@+id/duration"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />
@@ -51,10 +51,10 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Genre : " />
+            android:text="Format : " />
 
         <EditText
-            android:id="@+id/genre"
+            android:id="@+id/format"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -68,10 +68,10 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Poster : " />
+            android:text="Row count : " />
 
         <EditText
-            android:id="@+id/poster"
+            android:id="@+id/rowcount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -86,13 +86,14 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Rating code : " />
+            android:text="Column count : " />
 
         <EditText
-            android:id="@+id/rating"
+            android:id="@+id/columncount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="" />
+
 
     </LinearLayout>
 

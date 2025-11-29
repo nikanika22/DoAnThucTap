@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ public class UpdateMovieActivity extends AppCompatActivity {
     EditText edtTitle, edtDuration, edtGenre, edtPoster, edtRating;
     Button btnUpdate;
 
+    CheckBox isActive;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
             edtGenre.setText(movie.getGenre());
             edtPoster.setText(movie.getPoster());
             edtRating.setText(movie.getRating_code());
+            isActive.setChecked(movie.isIs_active());
         }
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +69,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
         edtPoster = findViewById(R.id.poster);
         edtRating = findViewById(R.id.rating);
         btnUpdate = findViewById(R.id.add);
+        isActive = findViewById(R.id.isactive);
     }
 
     private void updateMovie(int movieId) {
@@ -73,6 +78,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
         String genre = edtGenre.getText().toString().trim();
         String poster = edtPoster.getText().toString().trim();
         String rating = edtRating.getText().toString().trim();
+        boolean isActive = this.isActive.isChecked();
 
         if (title.isEmpty() || duration.isEmpty() || genre.isEmpty() || poster.isEmpty() || rating.isEmpty()) {
             new AlertDialog.Builder(this)
@@ -88,7 +94,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
 
         if (authToken != null) {
             String bearerToken = "Bearer " + authToken;
-            ApiService.apiService.updateMovie(bearerToken, movieId, new Movie(title, duration, genre, poster, rating)).enqueue(new Callback<ApiResponse>() {
+            ApiService.apiService.updateMovie(bearerToken, movieId, new Movie(title, duration, genre, poster, rating, isActive)).enqueue(new Callback<ApiResponse>() {
                 @Override
                 public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
