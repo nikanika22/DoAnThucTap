@@ -38,8 +38,7 @@
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -72,6 +71,7 @@
 
         <EditText
             android:id="@+id/rowcount"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -90,6 +90,7 @@
 
         <EditText
             android:id="@+id/columncount"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="" />

@@ -12,8 +12,7 @@ public class Screen implements Serializable {
     private int col_count;
     private boolean is_active;
 
-    public Screen(int id, String code, String name, String format, int row_count, int col_count, boolean is_active) {
-        this.id = id;
+    public Screen(String code, String name, String format, int row_count, int col_count, boolean is_active) {
         this.code = code;
         this.name = name;
         this.format = format;

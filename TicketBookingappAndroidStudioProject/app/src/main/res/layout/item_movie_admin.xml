@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:padding="5dp">
 
-    <!-- Poster phim -->
     <ImageView
         android:id="@+id/imgPoster"
         android:clickable="true"
@@ -17,7 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Nút Đặt vé (canh phải, giữa poster) -->
     <ImageView
         android:id="@+id/btnSua"
         android:clickable="true"
@@ -43,7 +41,6 @@
         app:layout_constraintTop_toBottomOf="@id/txtDuration"
         app:layout_constraintLeft_toRightOf="@id/btnSua" />
 
-    <!-- Tên phim -->
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="0dp"
@@ -57,7 +54,6 @@
         app:layout_constraintStart_toEndOf="@id/imgPoster"
         app:layout_constraintTop_toTopOf="@id/imgPoster" />
 
-    <!-- Thể loại -->
     <TextView
         android:id="@+id/txtGenre"
         android:layout_width="0dp"
@@ -69,7 +65,6 @@
         app:layout_constraintStart_toStartOf="@id/txtTitle"
         app:layout_constraintTop_toBottomOf="@id/txtTitle" />
 
-    <!-- Thời lượng -->
     <TextView
         android:id="@+id/txtDuration"
         android:layout_width="0dp"
@@ -81,7 +76,6 @@
         app:layout_constraintStart_toStartOf="@id/txtTitle"
         app:layout_constraintTop_toBottomOf="@id/txtGenre" />
 
-    <!-- Độ tuổi -->
     <TextView
         android:id="@+id/txtRated"
         android:layout_width="wrap_content"

@@ -55,6 +55,7 @@ public class Fragment_screen extends Fragment {
         edtSearch = view.findViewById(R.id.edtSearch);
         btnSearch = view.findViewById(R.id.btnSearch);
         listView = view.findViewById(R.id.listViewScreens);
+        btnAdd = view.findViewById(R.id.btnAdd);
 
         btn2D = view.findViewById(R.id.loai2d);
         btn3D = view.findViewById(R.id.loai3d);

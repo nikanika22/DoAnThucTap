@@ -15,7 +15,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.ticketbookingappandroidstudioproject.admin.activity.MainAdminActivity;
 import com.example.ticketbookingappandroidstudioproject.api.ApiService;
 import com.example.ticketbookingappandroidstudioproject.model.LoginData;
 import com.example.ticketbookingappandroidstudioproject.model.LoginRequest;
@@ -68,21 +67,21 @@ public class Login extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     LoginData loginData = response.body();
                     if (loginData != null && loginData.isSuccess()) {
-                        // Save the token
+                        String userRole = loginData.getData().getAccount().getRole();
+
+                        // Save the token and role
                         SharedPreferences sharedPreferences = getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("auth_token", loginData.getData().getToken());
+                        editor.putString("user_role", userRole);
                         editor.apply();
 
                         Toast.makeText(Login.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
-                        if (loginData.getData().getAccount().getRole().equals("ADMIN")) {
-                            Intent intent = new Intent(Login.this, MainAdminActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Intent intent = new Intent(Login.this, MainActivity.class);
-                            startActivity(intent);
-                        }
+
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(Login.this, "Login failed: Invalid credentials", Toast.LENGTH_SHORT).show();
                     }

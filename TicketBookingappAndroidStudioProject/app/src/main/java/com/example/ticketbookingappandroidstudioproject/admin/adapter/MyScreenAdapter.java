@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.example.ticketbookingappandroidstudioproject.R;
+import com.example.ticketbookingappandroidstudioproject.admin.activity.EditScreenActivity;
 import com.example.ticketbookingappandroidstudioproject.admin.activity.UpdateMovieActivity;
 import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
 import com.example.ticketbookingappandroidstudioproject.admin.model.Screen;
@@ -53,8 +54,8 @@ public class MyScreenAdapter extends ArrayAdapter<Screen> {
         TextView txtCode = item.findViewById(R.id.txtScreenCode);
         TextView txtIsActive = item.findViewById(R.id.txtScreenStatus);
 
-        ImageView btnDelete = item.findViewById(R.id.btnXoa);
-        ImageView btnUpdate = item.findViewById(R.id.btnSua);
+        ImageView btnDelete = item.findViewById(R.id.btnDeleteScreen);
+        ImageView btnUpdate = item.findViewById(R.id.btnEditScreen);
 
         Screen screen = this.DSScreen.get(position);
 
@@ -79,7 +80,7 @@ public class MyScreenAdapter extends ArrayAdapter<Screen> {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, UpdateMovieActivity.class);
+                Intent intent = new Intent(context, EditScreenActivity.class);
                 intent.putExtra("screen", screen);
                 intent.putExtra("id", screen.getId());
                 context.startActivity(intent);
@@ -104,7 +105,7 @@ public class MyScreenAdapter extends ArrayAdapter<Screen> {
                         DSScreen.remove(screen);
                         notifyDataSetChanged();
                     } else {
-                        Toast.makeText(context, "Failed to screen movies: " + response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Failed to delete screen: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 }
 

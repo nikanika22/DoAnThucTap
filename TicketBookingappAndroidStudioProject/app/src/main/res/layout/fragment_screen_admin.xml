@@ -49,8 +49,8 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <ScrollView
-        android:scrollbars="none"
+    <HorizontalScrollView
+        android:scrollbars="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -127,7 +127,7 @@
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
-    </ScrollView>
+    </HorizontalScrollView>
 
     <ListView
         android:id="@+id/listViewScreens"
