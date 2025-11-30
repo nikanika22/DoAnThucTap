@@ -63,11 +63,16 @@ public class Login extends AppCompatActivity {
         ApiService.apiService.sendLoginRequest(loginRequest).enqueue(new Callback<LoginData>() {
             @Override
             public void onResponse(Call<LoginData> call, Response<LoginData> response) {
-                    Toast.makeText(Login.this,"Login successful!", Toast.LENGTH_SHORT).show();
+
                     LoginData loginData=response.body();
                     if(loginData.isSuccess()==true){
+                        Toast.makeText(Login.this,"Login successful!", Toast.LENGTH_SHORT).show();
                         Intent intent= new Intent(Login.this,MainActivity.class);
                         startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(Login.this,"Login fail!", Toast.LENGTH_SHORT).show();
                     }
             }
 
