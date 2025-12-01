@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class MyMovieAdapter extends ArrayAdapter<Movie> {
@@ -32,18 +34,22 @@ public class MyMovieAdapter extends ArrayAdapter<Movie> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = this.context.getLayoutInflater();
+
         View item = inflater.inflate(this.resource, null);
+
         ImageView imageView=item.findViewById(R.id.imgPoster);
         TextView txtTitle=item.findViewById(R.id.txtTitle);
         TextView txtGenre=item.findViewById(R.id.txtGenre);
         TextView txtDuration=item.findViewById(R.id.txtDuration);
+        TextView txtRated=item.findViewById(R.id.txtRated);
         Button btnDatVe=item.findViewById(R.id.btnDatVe);
 
-        Movie movie=this.DSMovie.get(position);
+        Movie movie = this.DSMovie.get(position);
         imageView.setImageResource(movie.getPosterId());
         txtTitle.setText(movie.getTitle());
         txtGenre.setText(movie.getGenre());
         txtDuration.setText(movie.getDuration());
+        txtRated.setText(movie.getRated());
 
         // Xử lý sự kiện click nút Đặt vé
         btnDatVe.setOnClickListener(new View.OnClickListener() {

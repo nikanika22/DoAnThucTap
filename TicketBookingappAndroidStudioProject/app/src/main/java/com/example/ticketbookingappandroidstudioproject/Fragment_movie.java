@@ -1,5 +1,7 @@
 package com.example.ticketbookingappandroidstudioproject;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,15 +12,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.ticketbookingappandroidstudioproject.admin.data.MoviesData;
+import com.example.ticketbookingappandroidstudioproject.api.ApiService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Fragment_movie extends Fragment {
 
     ListView listView;
     MyMovieAdapter adapter;
-    List<Movie> movieList; // Danh sách phim
+    List<Movie> movieList;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,33 +39,51 @@ public class Fragment_movie extends Fragment {
         listView=view.findViewById(R.id.listViewMovies);
         movieList=new ArrayList<>();
 
-        // Thêm phim với ID để có thể truyền sang màn hình chọn ghế
-        Movie movie1 = new Movie("Atlas", R.drawable.atlas,"Hành động, Phiêu lưu","150 phút","C18");
-        movie1.setId(1);
-        movieList.add(movie1);
-
-        Movie movie2 = new Movie("Bad Boys: Ride or Die", R.drawable.bad_boys,"Hành động, Hài","125 phút","C16");
-        movie2.setId(2);
-        movieList.add(movie2);
-
-        Movie movie3 = new Movie("Dune: Part Two", R.drawable.dune_part_two,"Khoa học viễn tưởng","166 phút","C13");
-        movie3.setId(3);
-        movieList.add(movie3);
-
-        Movie movie4 = new Movie("Mad Max", R.drawable.madmax,"Hành động, Phiêu lưu","120 phút","C18");
-        movie4.setId(4);
-        movieList.add(movie4);
-
-        Movie movie5 = new Movie("Ordinary Angels", R.drawable.ordinary_angels,"Chính kịch","118 phút","C13");
-        movie5.setId(5);
-        movieList.add(movie5);
-
-        Movie movie6 = new Movie("Fly Me to the Moon", R.drawable.fly_me_to_the_moon,"Hài, Lãng mạn","132 phút","C13");
-        movie6.setId(6);
-        movieList.add(movie6);
 
         adapter=new MyMovieAdapter(getActivity(),R.layout.item_movie,movieList);
         listView.setAdapter(adapter);
+
+        fetchMovies(new HashMap<>());
+
         return view;
+    }
+
+    private void fetchMovies(Map<String, String> options) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString("auth_token", null);
+
+        if (authToken != null) {
+            String bearerToken = "Bearer " + authToken;
+
+            ApiService.apiService.getMovies(bearerToken, options).enqueue(new Callback<MoviesData>() {
+                @Override
+                public void onResponse(Call<MoviesData> call, Response<MoviesData> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        MoviesData moviesData = response.body();
+                        movieList.clear();
+                        if (moviesData.isSuccess() && moviesData.getData() != null && !moviesData.getData().isEmpty()) {
+                            movieList.addAll(moviesData.getData());
+                        } else {
+                            Toast.makeText(getActivity(), "No movies found.", Toast.LENGTH_SHORT).show();
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getActivity(), "Failed to load movies: " + response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<MoviesData> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(), "You are not logged in.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchMovies(new HashMap<>());
     }
 }

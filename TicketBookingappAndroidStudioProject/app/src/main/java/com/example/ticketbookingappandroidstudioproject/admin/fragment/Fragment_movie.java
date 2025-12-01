@@ -94,6 +94,7 @@ public class Fragment_movie extends Fragment {
         btnAction.setOnClickListener(genreClickListener);
         btnAdventure.setOnClickListener(genreClickListener);
         btnSciFi.setOnClickListener(genreClickListener);
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

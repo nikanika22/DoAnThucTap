@@ -55,13 +55,15 @@ public class Fragment_screen extends Fragment {
         edtSearch = view.findViewById(R.id.edtSearch);
         btnSearch = view.findViewById(R.id.btnSearch);
         listView = view.findViewById(R.id.listViewScreens);
-        btnAdd = view.findViewById(R.id.btnAdd);
 
         btn2D = view.findViewById(R.id.loai2d);
         btn3D = view.findViewById(R.id.loai3d);
         btnImax = view.findViewById(R.id.loaiimax);
         btnScreenX = view.findViewById(R.id.loaiscreenx);
         btn4DX = view.findViewById(R.id.loai4dx);
+        
+        // NOTE: DÒNG NÀY ĐÃ BỊ THIẾU. Thêm vào để ánh xạ nút Add.
+        btnAdd = view.findViewById(R.id.btnAdd);
 
         ScreenList = new ArrayList<>();
         adapter = new MyScreenAdapter(getActivity(), R.layout.item_screen_admin, ScreenList);
@@ -123,6 +125,8 @@ public class Fragment_screen extends Fragment {
                         if (ScreensData.isSuccess() && ScreensData.getData() != null && !ScreensData.getData().isEmpty()) {
                             ScreenList.addAll(ScreensData.getData());
                         } else {
+                            // Clear list if no screens are found to refresh the view
+                            ScreenList.clear();
                             Toast.makeText(getActivity(), "No Screens found.", Toast.LENGTH_SHORT).show();
                         }
                         adapter.notifyDataSetChanged();

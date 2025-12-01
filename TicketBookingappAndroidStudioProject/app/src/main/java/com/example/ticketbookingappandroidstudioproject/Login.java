@@ -81,22 +81,19 @@ public class Login extends AppCompatActivity {
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
 
-                    LoginData loginData=response.body();
-                    if(loginData.isSuccess()==true){
-                        Toast.makeText(Login.this,"Login successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent= new Intent(Login.this,MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        loginData = response.body();
+                        if (loginData.isSuccess() == true) {
+                            Toast.makeText(Login.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                            intent = new Intent(Login.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(Login.this, "Login failed: Invalid credentials", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(Login.this, "Login failed: Invalid credentials", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "Login failed: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(Login.this, "Login failed: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
-                    else
-                    {
-                        Toast.makeText(Login.this,"Login fail!", Toast.LENGTH_SHORT).show();
-                    }
             }
 
             @Override
