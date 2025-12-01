@@ -16,31 +16,31 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".admin.activity.UpdateAccountActivity"
+            android:name=".view.UpdateAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.activity.AddAccountActivity"
+            android:name=".view.AddAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.activity.EditScreenActivity"
+            android:name=".view.EditScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.activity.AddScreenActivity"
+            android:name=".view.AddScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.activity.UpdateMovieActivity"
+            android:name=".view.UpdateMovieActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.activity.AddMovieActivity"
+            android:name=".view.AddMovieActivity"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".view.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".view.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,11 +49,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="false" />
             android:exported="false">
         <activity
-            android:name=".SeatSelectionActivity"
+            android:name=".view.SeatSelectionActivity"
             android:exported="false"
             android:theme="@style/Theme.TicketBookingAppAndroidStudioProject">
         </activity>

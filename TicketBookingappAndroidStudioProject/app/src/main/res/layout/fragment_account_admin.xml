@@ -3,12 +3,57 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="12dp"
     android:orientation="vertical"
-    android:background="@color/black">
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search_edittext"
+            android:drawablePadding="10dp"
+            android:hint="Tìm theo ten"
+            android:inputType="text"
+            android:paddingHorizontal="12dp"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:textColorHint="#7E7C7C" />
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_search_button"
+            android:backgroundTint="@color/black"
+            android:contentDescription="Tìm kiếm"
+            android:scaleType="centerInside"
+            android:src="@drawable/search" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listViewAccounts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_marginTop="10dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:src="@android:drawable/ic_input_add" />
 
 </LinearLayout>

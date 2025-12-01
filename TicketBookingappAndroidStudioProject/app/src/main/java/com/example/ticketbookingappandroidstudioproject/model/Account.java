@@ -1,5 +1,6 @@
 package com.example.ticketbookingappandroidstudioproject.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /**
@@ -10,9 +11,14 @@ public class Account implements Serializable {
     private int id;
     private String email;
     private String phone;
+    @SerializedName("password_hash")
     private String passwordHash;
+
+    @SerializedName("full_name")
     private String fullName;
-    private String role;            // CUSTOMER, STAFF, ADMIN
+
+    private String role;
+    @SerializedName("is_active")
     private boolean isActive;
 
     public Account() {
@@ -20,11 +26,11 @@ public class Account implements Serializable {
         this.isActive = true;
     }
 
-    public Account(int id, String email, String phone, String fullName, String role, boolean isActive) {
-        this.id = id;
+    public Account(String email, String phone, String fullName, String passwordHash, String role, boolean isActive) {
         this.email = email;
         this.phone = phone;
         this.fullName = fullName;
+        this.passwordHash = passwordHash;
         this.role = role;
         this.isActive = isActive;
     }
@@ -86,4 +92,3 @@ public class Account implements Serializable {
         isActive = active;
     }
 }
-

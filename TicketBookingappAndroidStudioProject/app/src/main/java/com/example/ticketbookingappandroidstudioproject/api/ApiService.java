@@ -1,12 +1,12 @@
 package com.example.ticketbookingappandroidstudioproject.api;
 
-import com.example.ticketbookingappandroidstudioproject.admin.data.AccountsData;
-import com.example.ticketbookingappandroidstudioproject.admin.data.ApiResponse;
-import com.example.ticketbookingappandroidstudioproject.admin.data.MoviesData;
-import com.example.ticketbookingappandroidstudioproject.admin.data.ScreensData;
-import com.example.ticketbookingappandroidstudioproject.admin.model.Account;
-import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
-import com.example.ticketbookingappandroidstudioproject.admin.model.Screen;
+import com.example.ticketbookingappandroidstudioproject.data.AccountsData;
+import com.example.ticketbookingappandroidstudioproject.data.ApiResponse;
+import com.example.ticketbookingappandroidstudioproject.data.MoviesData;
+import com.example.ticketbookingappandroidstudioproject.data.ScreensData;
+import com.example.ticketbookingappandroidstudioproject.model.Account;
+import com.example.ticketbookingappandroidstudioproject.model.Movie;
+import com.example.ticketbookingappandroidstudioproject.model.Screen;
 import com.example.ticketbookingappandroidstudioproject.model.LoginData;
 import com.example.ticketbookingappandroidstudioproject.model.LoginRequest;
 import com.example.ticketbookingappandroidstudioproject.model.RegisterData;
