@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
             findViewById(R.id.tabMovie).setOnClickListener(v -> loadFragment(new com.example.ticketbookingappandroidstudioproject.admin.fragment.Fragment_movie()));
             findViewById(R.id.tabScreen).setOnClickListener(v -> loadFragment(new com.example.ticketbookingappandroidstudioproject.admin.fragment.Fragment_screen()));
-
+            findViewById(R.id.tabAccount).setOnClickListener(v -> loadFragment(new com.example.ticketbookingappandroidstudioproject.admin.fragment.Fragment_account()));
 
             loadFragment(new com.example.ticketbookingappandroidstudioproject.admin.fragment.Fragment_movie());
 
@@ -66,9 +66,8 @@ public class MainActivity extends AppCompatActivity {
             bottomBarCustomer.setVisibility(View.VISIBLE);
             bottomBarAdmin.setVisibility(View.GONE);
 
-
             findViewById(R.id.tabHome).setOnClickListener(v -> loadFragment(new com.example.ticketbookingappandroidstudioproject.Fragment_movie()));
-
+            findViewById(R.id.tabAccount).setOnClickListener(v -> loadFragment(new com.example.ticketbookingappandroidstudioproject.Fragment_account()));
 
             loadFragment(new com.example.ticketbookingappandroidstudioproject.Fragment_movie());
         }

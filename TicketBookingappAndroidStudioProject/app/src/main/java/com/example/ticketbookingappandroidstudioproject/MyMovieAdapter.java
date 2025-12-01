@@ -14,6 +14,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
+
+
 import java.util.List;
 
 public class MyMovieAdapter extends ArrayAdapter<Movie> {
@@ -33,17 +37,23 @@ public class MyMovieAdapter extends ArrayAdapter<Movie> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View item = inflater.inflate(this.resource, null);
-        ImageView imageView=item.findViewById(R.id.imgPoster);
-        TextView txtTitle=item.findViewById(R.id.txtTitle);
-        TextView txtGenre=item.findViewById(R.id.txtGenre);
-        TextView txtDuration=item.findViewById(R.id.txtDuration);
-        Button btnDatVe=item.findViewById(R.id.btnDatVe);
 
-        Movie movie=this.DSMovie.get(position);
-        imageView.setImageResource(movie.getPosterId());
+        ImageView imageView = item.findViewById(R.id.imgPoster);
+        TextView txtTitle = item.findViewById(R.id.txtTitle);
+        TextView txtGenre = item.findViewById(R.id.txtGenre);
+        TextView txtDuration = item.findViewById(R.id.txtDuration);
+        TextView txtRating = item.findViewById(R.id.txtRated);
+
+        Button btnDatVe = item.findViewById(R.id.btnDatVe);
+
+        Movie movie = this.DSMovie.get(position);
+
+        Glide.with(context).load(movie.getPoster()).into(imageView);
+
         txtTitle.setText(movie.getTitle());
         txtGenre.setText(movie.getGenre());
-        txtDuration.setText(movie.getDuration());
+        txtDuration.setText(movie.getDuration_min());
+        txtRating.setText(movie.getRating_code());
 
         // Xử lý sự kiện click nút Đặt vé
         btnDatVe.setOnClickListener(new View.OnClickListener() {

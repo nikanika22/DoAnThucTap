@@ -59,23 +59,42 @@ public class Register extends AppCompatActivity {
     }
 
     private void sendRegisterDetails(){
+        // Validate input
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String phone = phoneEditText.getText().toString().trim();
+        String fullname = fullnameEditText.getText().toString().trim();
 
-        RegisterRequest registerRequest = new RegisterRequest(emailEditText.getText().toString(),
-                passwordEditText.getText().toString(), phoneEditText.getText().toString(), fullnameEditText.getText().toString());
+        if (email.isEmpty() || password.isEmpty() || phone.isEmpty() || fullname.isEmpty()) {
+            Toast.makeText(Register.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RegisterRequest registerRequest = new RegisterRequest(email, password, phone, fullname);
+
         ApiService.apiService.sendRegisterRequest(registerRequest).enqueue(new Callback<RegisterData>() {
             @Override
             public void onResponse(Call<RegisterData> call, Response<RegisterData> response) {
-                    Toast.makeText(Register.this,"Register successful!", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
                     RegisterData registerData = response.body();
-                    if( registerData.isSuccess() == true ) {
-                        Intent intent= new Intent(Register.this,MainActivity.class);
+
+                    if (registerData != null && registerData.isSuccess()) {
+                        Toast.makeText(Register.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Register.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
+                    } else {
+                        String errorMsg = registerData != null ? registerData.getMessage() : "Đăng ký thất bại";
+                        Toast.makeText(Register.this, "Lỗi: " + errorMsg, Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(Register.this, "Lỗi server: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(Call<RegisterData> call, Throwable t) {
-                Toast.makeText(Register.this,"Register failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Register.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

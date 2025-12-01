@@ -34,9 +34,6 @@
             android:name=".admin.activity.AddMovieActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.activity.MainAdminActivity"
-            android:exported="false" />
-        <activity
             android:name=".Login"
             android:exported="false" />
         <activity
@@ -55,7 +52,6 @@
             android:name=".MainActivity"
             android:exported="false" />
             android:exported="false">
-        </activity>
         <activity
             android:name=".SeatSelectionActivity"
             android:exported="false"

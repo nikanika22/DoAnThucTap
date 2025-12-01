@@ -60,11 +60,11 @@ public class Fragment_account extends Fragment {
         btn2D = view.findViewById(R.id.loai2d);
         btn3D = view.findViewById(R.id.loai3d);
         btnImax = view.findViewById(R.id.loaiimax);
-        btnAccountX = view.findViewById(R.id.loaiAccountx);
+        btnAccountX = view.findViewById(R.id.loaiscreenx);
         btn4DX = view.findViewById(R.id.loai4dx);
 
         AccountList = new ArrayList<>();
-        adapter = new MyAccountAdapter(getActivity(), R.layout.item_account_admin, AccountList);
+        adapter = new MyAccountAdapter(getActivity(), R.layout.item_screen_admin, AccountList);
         listView.setAdapter(adapter);
 
         fetchAccounts(new HashMap<>());
