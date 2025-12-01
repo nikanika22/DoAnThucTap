@@ -1,0 +1,118 @@
+package com.example.ticketbookingappandroidstudioproject.admin.adapter;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.example.ticketbookingappandroidstudioproject.R;
+import com.example.ticketbookingappandroidstudioproject.admin.activity.EditAccountActivity;
+import com.example.ticketbookingappandroidstudioproject.admin.model.Account;
+import com.example.ticketbookingappandroidstudioproject.api.ApiService;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MyAccountAdapter extends ArrayAdapter<Account> {
+    Activity context;
+    int resource;
+    List<Account> DSAccount;
+
+    public MyAccountAdapter(Activity context, int resource, List<Account> DSAccount) {
+        super(context, resource, DSAccount);
+        this.context = context;
+        this.resource = resource;
+        this.DSAccount = DSAccount;
+    }
+
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        LayoutInflater inflater = this.context.getLayoutInflater();
+
+        View item = inflater.inflate(this.resource, null);
+
+        TextView txtName = item.findViewById(R.id.txtAccountName);
+        TextView txtFormat = item.findViewById(R.id.txtAccountFormat);
+        TextView txtCode = item.findViewById(R.id.txtAccountCode);
+        TextView txtIsActive = item.findViewById(R.id.txtAccountStatus);
+
+        ImageView btnDelete = item.findViewById(R.id.btnDeleteAccount);
+        ImageView btnUpdate = item.findViewById(R.id.btnEditAccount);
+
+        Account Account = this.DSAccount.get(position);
+
+        txtName.setText(Account.getName());
+        txtFormat.setText(Account.getFormat() + " : " + Account.getRow_count() + " x " + Account.getCol_count());
+        txtCode.setText(Account.getCode());
+        if (Account.isIs_active()) {
+            txtIsActive.setText("Đang hoạt động");
+            txtIsActive.setTextColor(Color.GREEN);
+        } else {
+            txtIsActive.setText("Ngưng hoạt động");
+            txtIsActive.setTextColor(Color.RED);
+        }
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteAccount(Account);
+            }
+        });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EditAccountActivity.class);
+                intent.putExtra("Account", Account);
+                intent.putExtra("id", Account.getId());
+                context.startActivity(intent);
+            }
+        });
+
+        return item;
+    }
+
+    private void deleteAccount(Account Account) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString("auth_token", null);
+
+        if (authToken != null) {
+            String bearerToken = "Bearer " + authToken;
+
+            ApiService.apiService.deleteAccount(bearerToken, Account.getId()).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(context, "Account deleted successfully.", Toast.LENGTH_SHORT).show();
+                        DSAccount.remove(Account);
+                        notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(context, "Failed to delete account: " + response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(context, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(context, "You are not logged in.", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
