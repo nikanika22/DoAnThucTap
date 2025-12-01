@@ -32,6 +32,11 @@
             android:name=".MainActivity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".SeatSelectionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TicketBookingAppAndroidStudioProject">
+        </activity>
     </application>
 
 </manifest>

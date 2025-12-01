@@ -1,13 +1,35 @@
 package com.example.ticketbookingappandroidstudioproject.model;
 
-public class Account {
+import java.io.Serializable;
+
+/**
+ * Model class cho bảng account (tài khoản)
+ * Khớp với database schema
+ */
+public class Account implements Serializable {
     private int id;
     private String email;
     private String phone;
-    private String full_name;
-    private String role;
-    private boolean is_active;
+    private String passwordHash;
+    private String fullName;
+    private String role;            // CUSTOMER, STAFF, ADMIN
+    private boolean isActive;
 
+    public Account() {
+        this.role = "CUSTOMER";
+        this.isActive = true;
+    }
+
+    public Account(int id, String email, String phone, String fullName, String role, boolean isActive) {
+        this.id = id;
+        this.email = email;
+        this.phone = phone;
+        this.fullName = fullName;
+        this.role = role;
+        this.isActive = isActive;
+    }
+
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -32,12 +54,20 @@ public class Account {
         this.phone = phone;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getRole() {
@@ -48,20 +78,12 @@ public class Account {
         this.role = role;
     }
 
-    public boolean isIs_active() {
-        return is_active;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setIs_active(boolean is_active) {
-        this.is_active = is_active;
-    }
-
-    public Account(int id, String email, String phone, String full_name, String role, boolean is_active) {
-        this.id = id;
-        this.email = email;
-        this.phone = phone;
-        this.full_name = full_name;
-        this.role = role;
-        this.is_active = is_active;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
+
