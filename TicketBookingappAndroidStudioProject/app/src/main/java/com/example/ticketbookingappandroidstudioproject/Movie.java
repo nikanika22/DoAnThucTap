@@ -11,28 +11,7 @@ public class Movie implements Serializable {
     private String ratingCode;  // Mã phân loại (T13, T16, T18) - khớp với database
     private boolean isActive;   // Trạng thái active - khớp với database
 
-    // Cho local drawable (tạm thời dùng khi chưa có API)
-    private int posterDrawableId;
-
-    public Movie() {
-        this.isActive = true;
-    }
-
-    // Constructor cho local data (dùng drawable resource)
-    public Movie(String title, int posterDrawableId, String genre, String duration, String ratingCode) {
-        this.id = 0;
-        this.title = title;
-        this.posterDrawableId = posterDrawableId;
-        this.genre = genre;
-        this.ratingCode = ratingCode;
-        this.isActive = true;
-        // Convert "120 phút" -> 120
-        this.durationMin = parseDuration(duration);
-    }
-
-    // Constructor đầy đủ cho API data
-    public Movie(int id, String title, int durationMin, String genre, String poster, String ratingCode, boolean isActive) {
-        this.id = id;
+    public Movie(String title, int durationMin, String genre, String poster, String ratingCode, boolean isActive) {
         this.title = title;
         this.durationMin = durationMin;
         this.genre = genre;
@@ -41,16 +20,6 @@ public class Movie implements Serializable {
         this.isActive = isActive;
     }
 
-    // Helper method để convert string sang int
-    private int parseDuration(String duration) {
-        try {
-            return Integer.parseInt(duration.replaceAll("[^0-9]", ""));
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -73,15 +42,6 @@ public class Movie implements Serializable {
 
     public void setDurationMin(int durationMin) {
         this.durationMin = durationMin;
-    }
-
-    // Method tương thích với code cũ
-    public String getDuration() {
-        return durationMin + " phút";
-    }
-
-    public void setDuration(String duration) {
-        this.durationMin = parseDuration(duration);
     }
 
     public String getGenre() {
@@ -108,29 +68,11 @@ public class Movie implements Serializable {
         this.ratingCode = ratingCode;
     }
 
-    // Renamed từ getRated() để khớp với database
-    public String getRated() {
-        return ratingCode;
-    }
-
-    public void setRated(String ratingCode) {
-        this.ratingCode = ratingCode;
-    }
-
     public boolean isActive() {
         return isActive;
     }
 
     public void setActive(boolean active) {
         isActive = active;
-    }
-
-    // Getter cho drawable ID (local only)
-    public int getPosterId() {
-        return posterDrawableId;
-    }
-
-    public void setPosterId(int posterDrawableId) {
-        this.posterDrawableId = posterDrawableId;
     }
 }
