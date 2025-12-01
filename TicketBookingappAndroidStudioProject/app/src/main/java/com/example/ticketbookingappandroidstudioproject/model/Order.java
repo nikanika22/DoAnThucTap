@@ -2,10 +2,6 @@ package com.example.ticketbookingappandroidstudioproject.model;
 
 import java.io.Serializable;
 
-/**
- * Model class cho bảng orders (đơn hàng)
- * Khớp với database schema
- */
 public class Order implements Serializable {
     private int id;
     private String channel;         // WEB, POS

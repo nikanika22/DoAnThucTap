@@ -2,10 +2,6 @@ package com.example.ticketbookingappandroidstudioproject.model;
 
 import java.io.Serializable;
 
-/**
- * Model class cho bảng screen (phòng chiếu)
- * Khớp với database schema
- */
 public class Screen implements Serializable {
     private int id;
     private String code;            // Mã phòng (unique)

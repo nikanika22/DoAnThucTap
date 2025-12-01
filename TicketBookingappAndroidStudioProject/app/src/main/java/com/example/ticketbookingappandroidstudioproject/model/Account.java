@@ -3,10 +3,6 @@ package com.example.ticketbookingappandroidstudioproject.model;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
-/**
- * Model class cho bảng account (tài khoản)
- * Khớp với database schema
- */
 public class Account implements Serializable {
     private int id;
     private String email;

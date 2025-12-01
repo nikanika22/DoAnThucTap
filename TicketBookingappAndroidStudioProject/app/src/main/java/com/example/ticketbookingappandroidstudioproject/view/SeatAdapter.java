@@ -15,24 +15,12 @@ import com.example.ticketbookingappandroidstudioproject.model.Seat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 🎬 SeatAdapter - Quản lý hiển thị danh sách ghế trong RecyclerView
- *
- * Trách nhiệm:
- * 1. Chuyển đổi dữ liệu ghế thành các View trên màn hình
- * 2. Xử lý sự kiện khi người dùng click vào ghế
- * 3. Cập nhật giao diện dựa trên trạng thái ghế
- */
 public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder> {
 
     private List<Seat> seatList;              // Danh sách tất cả ghế
     private OnSeatClickListener listener;     // Callback để xử lý click
 
-    /**
-     * 📍 Interface OnSeatClickListener
-     * Dùng để báo cho Activity khi ghế được click
-     * Activity phải implement interface này
-     */
+
     public interface OnSeatClickListener {
         void onSeatClick(Seat seat, int position);
     }
@@ -48,15 +36,6 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
         this.listener = listener;
     }
 
-    /**
-     * ✏️ onCreateViewHolder - Tạo 1 item View (1 ghế)
-     *
-     * Gọi lần đầu khi RecyclerView cần hiển thị item mới
-     * Nó sẽ:
-     * 1. Load file XML (item_seat.xml) → Tạo View
-     * 2. Wrap View vào SeatViewHolder
-     * 3. Trả về SeatViewHolder
-     */
     @NonNull
     @Override
     public SeatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -72,7 +51,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
     }
 
     /**
-     * 🔗 onBindViewHolder - Liên kết dữ liệu ghế với View
+     *  onBindViewHolder - Liên kết dữ liệu ghế với View
      *
      * Gọi khi cần cập nhật dữ liệu hiển thị trên item
      * Nó sẽ gọi bind() để cập nhật TextView, background, click listener
@@ -87,7 +66,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
     }
 
     /**
-     * 📊 getItemCount - Báo cho RecyclerView có bao nhiêu ghế
+     *  getItemCount - Báo cho RecyclerView có bao nhiêu ghế
      * @return Số lượng ghế trong danh sách
      */
     @Override
@@ -96,7 +75,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
     }
 
     /**
-     * 🔄 updateSeats - Cập nhật danh sách ghế
+     *  updateSeats - Cập nhật danh sách ghế
      *
      * Dùng khi nhận dữ liệu mới từ API
      * Nó sẽ thay thế danh sách cũ và refresh UI
@@ -110,10 +89,8 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
         notifyDataSetChanged();
     }
 
-    // ================================ 🌟 ViewHolder ================================
-
     /**
-     * 🎨 SeatViewHolder - Quản lý 1 item ghế
+     * SeatViewHolder - Quản lý 1 item ghế
      *
      * Trách nhiệm:
      * 1. Giữ tham chiếu đến TextView
@@ -136,7 +113,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
         }
 
         /**
-         * 📍 bind - Cập nhật UI cho 1 ghế (PHẦN QUAN TRỌNG NHẤT)
+         *  bind - Cập nhật UI cho 1 ghế (PHẦN QUAN TRỌNG NHẤT)
          *
          * Phương thức này sẽ:
          * 1. Hiển thị text ghế (VD: "A1")
@@ -157,10 +134,6 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
             // ========== BƯỚC 3: Áp dụng background ==========
             tvSeat.setBackgroundResource(backgroundDrawable);
 
-            // ========== BƯỚC 4: Set màu chữ trắng ==========
-            int whiteColor = ContextCompat.getColor(itemView.getContext(), android.R.color.white);
-            tvSeat.setTextColor(whiteColor);
-
             // ========== BƯỚC 5: Enable/Disable click ==========
             tvSeat.setEnabled(isClickable);
 
@@ -169,7 +142,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
         }
 
         /**
-         * 🎨 getBackgroundBySeatStatus - Lấy drawable dựa trên trạng thái ghế
+         *  getBackgroundBySeatStatus - Lấy drawable dựa trên trạng thái ghế
          *
          * @param status Trạng thái: "available", "selected", "sold"
          * @return ID của drawable tương ứng
@@ -198,7 +171,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
         }
 
         /**
-         * 🖱️ setupClickListener - Thiết lập sự kiện click
+         *  setupClickListener - Thiết lập sự kiện click
          *
          * Khi người dùng nhấn ghế:
          * 1. Kiểm tra ghế có phải "sold" không

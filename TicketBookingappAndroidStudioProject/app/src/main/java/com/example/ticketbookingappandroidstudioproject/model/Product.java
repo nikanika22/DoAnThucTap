@@ -2,10 +2,6 @@ package com.example.ticketbookingappandroidstudioproject.model;
 
 import java.io.Serializable;
 
-/**
- * Model class cho bảng product (sản phẩm - đồ ăn, nước uống)
- * Khớp với database schema
- */
 public class Product implements Serializable {
     private int id;
     private String name;
