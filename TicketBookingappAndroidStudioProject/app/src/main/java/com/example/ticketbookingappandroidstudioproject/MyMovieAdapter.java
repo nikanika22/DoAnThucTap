@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
 
 
 import java.util.List;
@@ -51,7 +52,8 @@ public class MyMovieAdapter extends ArrayAdapter<Movie> {
 
         txtTitle.setText(movie.getTitle());
         txtGenre.setText(movie.getGenre());
-        txtDuration.setText(movie.getDurationMin());
+        txtDuration.setText(movie.getDuration_min());
+        txtRating.setText(movie.getRating_code());
 
         // Xử lý sự kiện click nút Đặt vé
         btnDatVe.setOnClickListener(new View.OnClickListener() {

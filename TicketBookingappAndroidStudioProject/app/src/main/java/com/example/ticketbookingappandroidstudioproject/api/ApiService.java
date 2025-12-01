@@ -44,6 +44,9 @@ public interface ApiService {
     @POST("register")
     Call<RegisterData> sendRegisterRequest(@Body RegisterRequest registerRequest);
 
+    @GET("/info")
+    Call<ApiResponse> getInfo(@Header("Authorization") String authToken);
+
     @GET("movies")
     Call<MoviesData> getMovies(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
 

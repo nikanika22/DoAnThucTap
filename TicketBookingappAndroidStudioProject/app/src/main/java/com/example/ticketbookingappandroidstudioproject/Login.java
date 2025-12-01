@@ -58,7 +58,6 @@ public class Login extends AppCompatActivity {
     }
 
     private void sendLoginDetails() {
-
         LoginRequest loginRequest = new LoginRequest(emailEditText.getText().toString(), passwordEditText.getText().toString());
 
         ApiService.apiService.sendLoginRequest(loginRequest).enqueue(new Callback<LoginData>() {
@@ -66,32 +65,28 @@ public class Login extends AppCompatActivity {
             public void onResponse(Call<LoginData> call, Response<LoginData> response) {
                 if (response.isSuccessful()) {
                     LoginData loginData = response.body();
-                    if (loginData != null && loginData.isSuccess()) {
-                        String userRole = loginData.getData().getAccount().getRole();
+                    if (loginData != null && loginData.isSuccess() && loginData.getData() != null) {
+                        if (loginData.getData().getAccount() != null && loginData.getData().getToken() != null) {
+                            String userRole = loginData.getData().getAccount().getRole();
 
-                        // Save the token and role
-                        SharedPreferences sharedPreferences = getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("auth_token", loginData.getData().getToken());
-                        editor.putString("user_role", userRole);
-                        editor.apply();
+                            // Save the token and role
+                            SharedPreferences sharedPreferences = getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("auth_token", loginData.getData().getToken());
+                            editor.putString("user_role", userRole);
+                            editor.apply();
 
-                        Toast.makeText(Login.this, "Login successful!", Toast.LENGTH_SHORT).show();
-
-
-                        Intent intent = new Intent(Login.this, MainActivity.class);
-
-                        loginData = response.body();
-                        if (loginData.isSuccess() == true) {
                             Toast.makeText(Login.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                            intent = new Intent(Login.this, MainActivity.class);
+
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            intent.putExtra("account", loginData.getData().getAccount());
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(Login.this, "Login failed: Invalid credentials", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "Login failed: Invalid data", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(Login.this, "Login failed: " + response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "Login failed: " + (loginData != null ? loginData.getMessage() : "Invalid response"), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

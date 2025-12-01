@@ -3,20 +3,21 @@ package com.example.ticketbookingappandroidstudioproject;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import com.example.ticketbookingappandroidstudioproject.admin.data.MoviesData;
-import com.example.ticketbookingappandroidstudioproject.api.ApiService;
 import com.example.ticketbookingappandroidstudioproject.admin.model.Movie;
+import com.example.ticketbookingappandroidstudioproject.api.ApiService;
+import com.example.ticketbookingappandroidstudioproject.model.Account;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,26 +28,49 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Fragment_movie extends Fragment {
+public class Fragment_account extends Fragment {
 
     ListView listView;
+    TextView txtAccountName, txtAccountEmail, txtAccountPhone, txtAccountRole;
     MyMovieAdapter adapter;
     List<Movie> movieList;
+    Account account;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view=inflater.inflate(R.layout.fragment_movie,container,false);
-        listView=view.findViewById(R.id.listViewMovies);
-        movieList=new ArrayList<>();
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
 
+        // Initialize views
+        txtAccountName = view.findViewById(R.id.txtAccountName);
+        txtAccountEmail = view.findViewById(R.id.txtAccountEmail);
+        txtAccountPhone = view.findViewById(R.id.txtAccountPhone);
+        txtAccountRole = view.findViewById(R.id.txtAccountRole);
+        listView = view.findViewById(R.id.listViewOrders);
 
-        adapter=new MyMovieAdapter(getActivity(),R.layout.item_movie,movieList);
+        movieList = new ArrayList<>();
+        adapter = new MyMovieAdapter(getActivity(), R.layout.item_movie, movieList);
         listView.setAdapter(adapter);
+
+        // Get account data from Intent
+        if (getActivity() != null) {
+            account = (Account) getActivity().getIntent().getSerializableExtra("account");
+            displayAccountInfo(account);
+        }
 
         fetchMovies(new HashMap<>());
 
         return view;
+    }
+
+    private void displayAccountInfo(Account account) {
+        if (account != null) {
+            txtAccountName.setText(account.getFullName() != null ? account.getFullName() : "N/A");
+            txtAccountEmail.setText(account.getEmail() != null ? account.getEmail() : "N/A");
+            txtAccountPhone.setText(account.getPhone() != null ? account.getPhone() : "N/A");
+            txtAccountRole.setText(account.getRole() != null ? account.getRole() : "CUSTOMER");
+        }
     }
 
     private void fetchMovies(Map<String, String> options) {

@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.ticketbookingappandroidstudioproject.R;
-import com.example.ticketbookingappandroidstudioproject.admin.activity.EditAccountActivity;
+import com.example.ticketbookingappandroidstudioproject.admin.activity.UpdateAccountActivity;
 import com.example.ticketbookingappandroidstudioproject.admin.model.Account;
 import com.example.ticketbookingappandroidstudioproject.api.ApiService;
 
@@ -47,18 +47,18 @@ public class MyAccountAdapter extends ArrayAdapter<Account> {
         View item = inflater.inflate(this.resource, null);
 
         TextView txtName = item.findViewById(R.id.txtAccountName);
-        TextView txtFormat = item.findViewById(R.id.txtAccountFormat);
-        TextView txtCode = item.findViewById(R.id.txtAccountCode);
-        TextView txtIsActive = item.findViewById(R.id.txtAccountStatus);
+        TextView txtEmail = item.findViewById(R.id.txtEmail);
+        TextView txtPhone = item.findViewById(R.id.txtPhone);
+        TextView txtIsActive = item.findViewById(R.id.txtStatus);
 
         ImageView btnDelete = item.findViewById(R.id.btnDeleteAccount);
         ImageView btnUpdate = item.findViewById(R.id.btnEditAccount);
 
         Account Account = this.DSAccount.get(position);
 
-        txtName.setText(Account.getName());
-        txtFormat.setText(Account.getFormat() + " : " + Account.getRow_count() + " x " + Account.getCol_count());
-        txtCode.setText(Account.getCode());
+        txtName.setText(Account.getFullname());
+        txtEmail.setText(Account.getEmail());
+        txtPhone.setText(Account.getPhone());
         if (Account.isIs_active()) {
             txtIsActive.setText("Đang hoạt động");
             txtIsActive.setTextColor(Color.GREEN);
@@ -77,7 +77,7 @@ public class MyAccountAdapter extends ArrayAdapter<Account> {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, EditAccountActivity.class);
+                Intent intent = new Intent(context, UpdateAccountActivity.class);
                 intent.putExtra("Account", Account);
                 intent.putExtra("id", Account.getId());
                 context.startActivity(intent);
