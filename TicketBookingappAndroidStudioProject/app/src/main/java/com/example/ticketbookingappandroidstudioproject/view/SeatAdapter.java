@@ -123,21 +123,12 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
          */
         public void bind(Seat seat) {
 
-            // ========== BƯỚC 1: Hiển thị text ghế ==========
-            String seatLabel = seat.getSeatLabel();  // VD: "A1", "B5"
+            String seatLabel = seat.getSeatLabel();
             tvSeat.setText(seatLabel);
-
-            // ========== BƯỚC 2: Xác định màu dựa trên trạng thái ==========
             int backgroundDrawable = getBackgroundBySeatStatus(seat.getStatus());
             boolean isClickable = !seat.getStatus().equalsIgnoreCase("sold");
-
-            // ========== BƯỚC 3: Áp dụng background ==========
             tvSeat.setBackgroundResource(backgroundDrawable);
-
-            // ========== BƯỚC 5: Enable/Disable click ==========
             tvSeat.setEnabled(isClickable);
-
-            // ========== BƯỚC 6: Thêm click listener ==========
             setupClickListener(seat, isClickable);
         }
 
@@ -169,22 +160,9 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
                 return R.drawable.seat_available;
             }
         }
-
-        /**
-         *  setupClickListener - Thiết lập sự kiện click
-         *
-         * Khi người dùng nhấn ghế:
-         * 1. Kiểm tra ghế có phải "sold" không
-         * 2. Nếu không phải "sold" → Gọi callback cho Activity
-         */
         private void setupClickListener(Seat seat, boolean isClickable) {
             tvSeat.setOnClickListener(v -> {
-                // Kiểm tra điều kiện:
-                // 1. listener không null (Activity phải implement)
-                // 2. Ghế không phải "sold" (ghế đã bán không được click)
                 if (listener != null && isClickable) {
-
-                    // Gọi callback → Activity xử lý
                     listener.onSeatClick(seat, getAdapterPosition());
                 }
             });

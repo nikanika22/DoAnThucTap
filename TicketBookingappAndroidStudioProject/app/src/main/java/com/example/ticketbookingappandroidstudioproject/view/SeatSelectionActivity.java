@@ -106,18 +106,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements SeatAdap
             for (int number = 1; number <= SEATS_PER_ROW; number++) {
                 String status = "available";
                 double price = 75000; // Giá mặc định
-
-                // Ghế VIP (hàng D, E, F)
-                if (row.equals("D") || row.equals("E") || row.equals("F")) {
-                    price = 100000;
-                }
-
-                // Một số ghế đã bán (mẫu)
-                if ((row.equals("E") && (number == 4 || number == 5)) ||
-                    (row.equals("F") && number == 3)) {
-                    status = "sold";
-                }
-
                 Seat seat = new Seat(id++, row, number, "standard", status, price);
                 seat.setRoomId(roomId);
                 allSeats.add(seat);
