@@ -25,7 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddAccountActivity extends AppCompatActivity {
-    Button btnAdd;
+    Button btnAdd, btnCancel;
 
     EditText fullname, email, phone, password;
 
@@ -46,6 +46,7 @@ public class AddAccountActivity extends AppCompatActivity {
 
     private void addControls() {
         btnAdd = findViewById(R.id.add);
+        btnCancel = findViewById(R.id.cancel);
         fullname = findViewById(R.id.fullname);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.Phone);
@@ -57,6 +58,13 @@ public class AddAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addAccount();
+            }
+        });
+        
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

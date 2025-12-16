@@ -43,8 +43,6 @@ public class Fragment_account_admin extends Fragment {
     ImageButton btnSearch;
     EditText edtSearch;
 
-    FloatingActionButton btnAdd;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +51,6 @@ public class Fragment_account_admin extends Fragment {
         edtSearch = view.findViewById(R.id.edtSearch);
         btnSearch = view.findViewById(R.id.btnSearch);
         listView = view.findViewById(R.id.listViewAccounts);
-        btnAdd = view.findViewById(R.id.btnAdd);
 
         AccountList = new ArrayList<>();
         adapter = new MyAccountAdapterAdmin(getActivity(), R.layout.item_account_admin, AccountList);
@@ -82,15 +79,6 @@ public class Fragment_account_admin extends Fragment {
                 fetchAccounts(options);
             }
         };
-
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddAccountActivity.class);
-                startActivity(intent);
-            }
-        });
-
         return view;
     }
 

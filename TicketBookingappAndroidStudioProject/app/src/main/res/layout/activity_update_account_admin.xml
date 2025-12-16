@@ -1,123 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:fillViewport="true"
     tools:context=".view.UpdateAccountActivity">
 
     <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email : " />
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:text="Sửa Tài Khoản"
+            android:textSize="24sp"
+            android:textColor="#1a1a1a"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Phone : " />
+            android:text="Cập nhật thông tin tài khoản"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại *"
+            android:textColor="#1a1a1a"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <EditText
             android:id="@+id/Phone"
-            android:inputType="number"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext_simple"
+            android:hint="0123456789"
+            android:inputType="phone"
+            android:paddingHorizontal="12dp"
+            android:textColor="#1a1a1a"
+            android:textColorHint="#999999"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Full name : " />
+            android:text="Họ và tên *"
+            android:textColor="#1a1a1a"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <EditText
             android:id="@+id/fullname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext_simple"
+            android:hint="Nguyễn Văn A"
+            android:inputType="textPersonName"
+            android:paddingHorizontal="12dp"
+            android:textColor="#1a1a1a"
+            android:textColorHint="#999999"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password : " />
+            android:text="Mật khẩu"
+            android:textColor="#1a1a1a"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext_simple"
+            android:hint="Để trống nếu không đổi"
+            android:inputType="textPassword"
+            android:paddingHorizontal="12dp"
+            android:textColor="#1a1a1a"
+            android:textColorHint="#999999"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Role : " />
-
-        <EditText
-            android:id="@+id/role"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Is active : " />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
 
-        <CheckBox
-            android:text="Active"
-            android:id="@+id/isactive"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Trạng thái tài khoản"
+                android:textColor="#1a1a1a"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <CheckBox
+                android:id="@+id/isactive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đang hoạt động"
+                android:textColor="#666666"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp"
+            android:text="Lưu Thay Đổi"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:backgroundTint="#E91E63"/>
 
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:text="Hủy bỏ"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:backgroundTint="#E0E0E0"/>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Save" />
-
-</LinearLayout>
+</ScrollView>

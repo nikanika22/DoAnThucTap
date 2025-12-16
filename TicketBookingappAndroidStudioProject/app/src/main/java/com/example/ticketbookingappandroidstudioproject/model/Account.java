@@ -4,8 +4,11 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class Account implements Serializable {
+    @SerializedName("id")
     private int id;
+    @SerializedName("email")
     private String email;
+    @SerializedName("phone")
     private String phone;
     @SerializedName("password_hash")
     private String passwordHash;
@@ -13,6 +16,7 @@ public class Account implements Serializable {
     @SerializedName("full_name")
     private String fullName;
 
+    @SerializedName("role")
     private String role;
     @SerializedName("is_active")
     private boolean isActive;

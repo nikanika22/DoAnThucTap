@@ -77,7 +77,7 @@ public class MyAccountAdapterAdmin extends ArrayAdapter<Account> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, UpdateAccountActivity.class);
-                intent.putExtra("Account", Account);
+                intent.putExtra("account", Account);
                 intent.putExtra("id", Account.getId());
                 context.startActivity(intent);
             }

@@ -26,8 +26,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UpdateAccountActivity extends AppCompatActivity {
-    Button btnUpdate;
-    EditText fullname, email, phone, password, role;
+    Button btnUpdate, btnCancel;
+    EditText fullname, phone, password;
+
+    String role, email;
 
     CheckBox isActive;
 
@@ -48,11 +50,11 @@ public class UpdateAccountActivity extends AppCompatActivity {
 
         if (account != null) {
             fullname.setText(account.getFullName());
-            email.setText(account.getEmail());
             phone.setText(account.getPhone());
             password.setText(account.getPasswordHash());
-            role.setText(account.getRole());
             isActive.setChecked(account.isActive());
+            role = account.getRole();
+            email = account.getEmail();
         }
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -61,25 +63,30 @@ public class UpdateAccountActivity extends AppCompatActivity {
                 updateAccount(accountId);
             }
         });
+        
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void addControls() {
         btnUpdate = findViewById(R.id.add);
+        btnCancel = findViewById(R.id.cancel);
         fullname = findViewById(R.id.fullname);
-        email = findViewById(R.id.email);
         phone = findViewById(R.id.Phone);
         password = findViewById(R.id.password);
-        role = findViewById(R.id.role);
+        isActive = findViewById(R.id.isactive);
     }
 
     private void updateAccount(int accountId) {
         String fullname = this.fullname.getText().toString().trim();
-        String email = this.email.getText().toString().trim();
         String phone = this.phone.getText().toString().trim();
         String password = this.password.getText().toString().trim();
-        String role = this.role.getText().toString().trim();
 
-        if (fullname.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
+        if (fullname.isEmpty() || phone.isEmpty()) {
             new AlertDialog.Builder(this)
                     .setTitle("Error")
                     .setMessage("Please fill in all fields.")
