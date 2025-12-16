@@ -1,125 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#F5F5F5"
+    android:fillViewport="true"
     tools:context=".view.UpdateMovieActivity">
 
     <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title : " />
+            android:text="Sửa Thông Tin Phim"
+            android:textSize="24sp"
+            android:textColor="#1a1a1a"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cập nhật thông tin phim"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên phim *"
+            android:textColor="#1a1a1a"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <EditText
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext_simple"
+            android:hint="Nhập tên phim"
+            android:inputType="text"
+            android:paddingHorizontal="12dp"
+            android:textColor="#1a1a1a"
+            android:textColorHint="#999999"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Duration : " />
+            android:text="Thời lượng (phút) *"
+            android:textColor="#1a1a1a"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <EditText
             android:id="@+id/duration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext_simple"
+            android:hint="VD: 120"
+            android:inputType="number"
+            android:paddingHorizontal="12dp"
+            android:textColor="#1a1a1a"
+            android:textColorHint="#999999"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Genre : " />
+            android:text="Thể loại *"
+            android:textColor="#1a1a1a"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
-        <EditText
+        <Spinner
             android:id="@+id/genre"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext_simple"
+            android:paddingHorizontal="12dp"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Poster : " />
+            android:text="URL Poster"
+            android:textColor="#1a1a1a"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
         <EditText
             android:id="@+id/poster"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext_simple"
+            android:hint="https://example.com/poster.jpg"
+            android:inputType="textUri"
+            android:paddingHorizontal="12dp"
+            android:textColor="#1a1a1a"
+            android:textColorHint="#999999"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rating code : " />
+            android:text="Mã độ tuổi"
+            android:textColor="#1a1a1a"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
-        <EditText
+        <Spinner
             android:id="@+id/rating"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext_simple"
+            android:paddingHorizontal="12dp"
+            android:layout_marginBottom="16dp"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Is active : " />
-
-        <CheckBox
-            android:id="@+id/isactive"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Active" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Trạng thái hoạt động"
+                android:textColor="#1a1a1a"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <CheckBox
+                android:id="@+id/isactive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đang chiếu"
+                android:textColor="#666666"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Lưu Thay Đổi"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:backgroundTint="#E91E63"/>
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:text="Hủy bỏ"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:backgroundTint="#E0E0E0"/>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Save" />
-
-</LinearLayout>
+</ScrollView>

@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,10 +28,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UpdateMovieActivity extends AppCompatActivity {
-    EditText edtTitle, edtDuration, edtGenre, edtPoster, edtRating;
-    Button btnUpdate;
+    EditText edtTitle, edtDuration, edtPoster;
+
+    Spinner actvGenre, actvRating;
+    Button btnUpdate, btnCancel;
 
     CheckBox isActive;
+
+    private final String[] genreOptions = {"Action", "Honor", "Adventur", "Sci-Fi"};
+
+    private final String[] ratingOptions = {"P", "T13", "T16", "T18"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +50,16 @@ public class UpdateMovieActivity extends AppCompatActivity {
             return insets;
         });
         addControls();
+        setupGenreDropdown();
 
         Movie movie = (Movie) getIntent().getSerializableExtra("movie");
         int movieId = getIntent().getIntExtra("id", -1);
         if (movie != null) {
             edtTitle.setText(movie.getTitle());
             edtDuration.setText(movie.getDuration_min());
-            edtGenre.setText(movie.getGenre());
+            actvGenre.setSelection(getIndex(actvGenre, movie.getGenre()));
             edtPoster.setText(movie.getPoster());
-            edtRating.setText(movie.getRating_code());
+            actvRating.setSelection(getIndex(actvRating, movie.getRating_code()));
             isActive.setChecked(movie.isIs_active());
         }
 
@@ -60,24 +69,61 @@ public class UpdateMovieActivity extends AppCompatActivity {
                 updateMovie(movieId);
             }
         });
+        
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    public int getIndex(Spinner spinner, String selection) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equals(selection)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private void setupGenreDropdown() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                genreOptions
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        actvGenre.setAdapter(adapter);
+        actvGenre.setSelection(0);
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                ratingOptions
+        );
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        actvRating.setAdapter(adapter2);
+        actvRating.setSelection(0);
     }
 
     private void addControls() {
         edtTitle = findViewById(R.id.title);
         edtDuration = findViewById(R.id.duration);
-        edtGenre = findViewById(R.id.genre);
+        actvGenre = findViewById(R.id.genre);
         edtPoster = findViewById(R.id.poster);
-        edtRating = findViewById(R.id.rating);
+        actvRating = findViewById(R.id.rating);
         btnUpdate = findViewById(R.id.add);
+        btnCancel = findViewById(R.id.cancel);
         isActive = findViewById(R.id.isactive);
     }
 
     private void updateMovie(int movieId) {
         String title = edtTitle.getText().toString().trim();
         String duration = edtDuration.getText().toString().trim();
-        String genre = edtGenre.getText().toString().trim();
+        String genre = actvGenre.getSelectedItem().toString().trim();
         String poster = edtPoster.getText().toString().trim();
-        String rating = edtRating.getText().toString().trim();
+        String rating = actvRating.getSelectedItem().toString().trim();
         boolean isActive = this.isActive.isChecked();
 
         if (title.isEmpty() || duration.isEmpty() || genre.isEmpty() || poster.isEmpty() || rating.isEmpty()) {

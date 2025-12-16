@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,8 +28,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddMovieActivity extends AppCompatActivity {
-    EditText edtTitle, edtDuration, edtGenre, edtPoster, edtRating;
-    Button btnAdd;
+    EditText edtTitle, edtDuration, edtPoster;
+    Spinner actvGenre, actvRating;
+    Button btnAdd, btnCancel;
+    private final String[] genreOptions = {"Action", "Horror", "Adventur", "Sci-Fi"};
+
+    private final String[] ratingOptions = {"P", "T13", "T16", "T18"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +47,38 @@ public class AddMovieActivity extends AppCompatActivity {
             return insets;
         });
         addControls();
+        setupGenreDropdown();
         addEvents();
     }
 
     private void addControls() {
         edtTitle = findViewById(R.id.title);
         edtDuration = findViewById(R.id.duration);
-        edtGenre = findViewById(R.id.genre);
+        actvGenre = findViewById(R.id.genre);
         edtPoster = findViewById(R.id.poster);
-        edtRating = findViewById(R.id.rating);
+        actvRating = findViewById(R.id.rating);
         btnAdd = findViewById(R.id.add);
+        btnCancel = findViewById(R.id.cancel);
+    }
+    
+    private void setupGenreDropdown() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                genreOptions
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        actvGenre.setAdapter(adapter);
+        actvGenre.setSelection(0);
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                ratingOptions
+        );
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        actvRating.setAdapter(adapter2);
+        actvRating.setSelection(0);
     }
 
     private void addEvents() {
@@ -58,19 +88,26 @@ public class AddMovieActivity extends AppCompatActivity {
                 addMovie();
             }
         });
+        
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void addMovie() {
         String title = edtTitle.getText().toString().trim();
         String duration = edtDuration.getText().toString().trim();
-        String genre = edtGenre.getText().toString().trim();
+        String genre = actvGenre.getSelectedItem().toString().trim();
         String poster = edtPoster.getText().toString().trim();
-        String rating = edtRating.getText().toString().trim();
+        String rating = actvRating.getSelectedItem().toString().trim();
 
         if (title.isEmpty() || duration.isEmpty() || genre.isEmpty() || poster.isEmpty() || rating.isEmpty()) {
             new AlertDialog.Builder(this)
-                    .setTitle("Error")
-                    .setMessage("Please fill in all fields.")
+                    .setTitle("Lỗi")
+                    .setMessage("Vui lòng điền đầy đủ thông tin.")
                     .setPositiveButton("OK", null)
                     .show();
             return;
@@ -85,20 +122,20 @@ public class AddMovieActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        Toast.makeText(AddMovieActivity.this, "Movie added successfully.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddMovieActivity.this, "Thêm phim thành công!", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(AddMovieActivity.this, "Failed to add movie: " + response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddMovieActivity.this, "Thêm phim thất bại: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ApiResponse> call, Throwable t) {
-                    Toast.makeText(AddMovieActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddMovieActivity.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
-            Toast.makeText(this, "You are not logged in.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bạn chưa đăng nhập.", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         Account account = (Account) getIntent().getSerializableExtra("account");
 
         View headerCustomer = findViewById(R.id.headerLayoutCustomer);
-        View headerAdmin = findViewById(R.id.headerAdmin);
         View bottomBarCustomer = findViewById(R.id.bottomBarCustomer);
         View bottomBarAdmin = findViewById(R.id.bottomBarAdmin);
         EditText editSearch = findViewById(R.id.edtSearch);
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         if ("ADMIN".equals(userRole)) {
 
             headerCustomer.setVisibility(View.GONE);
-            headerAdmin.setVisibility(View.VISIBLE);
             bottomBarCustomer.setVisibility(View.GONE);
             bottomBarAdmin.setVisibility(View.VISIBLE);
             editSearch.setVisibility(View.GONE);
@@ -71,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             headerCustomer.setVisibility(View.VISIBLE);
-            headerAdmin.setVisibility(View.GONE);
             bottomBarCustomer.setVisibility(View.VISIBLE);
             bottomBarAdmin.setVisibility(View.GONE);
 
