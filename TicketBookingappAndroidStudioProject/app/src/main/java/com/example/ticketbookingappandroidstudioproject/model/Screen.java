@@ -1,14 +1,24 @@
 package com.example.ticketbookingappandroidstudioproject.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Screen implements Serializable {
+    @SerializedName("id")
     private int id;
+    @SerializedName("code")
     private String code;            // Mã phòng (unique)
+    @SerializedName("name")
     private String name;            // Tên phòng
-    private String format;          // 2D, 3D, IMAX, ScreenX
+    @SerializedName("format")
+    private String format;
+
+    @SerializedName("row_count")
     private int rowCount;           // Số hàng ghế
+    @SerializedName("col_count")
     private int colCount;           // Số cột ghế
+    @SerializedName("is_active")
     private boolean isActive;       // Trạng thái hoạt động
 
     public Screen() {

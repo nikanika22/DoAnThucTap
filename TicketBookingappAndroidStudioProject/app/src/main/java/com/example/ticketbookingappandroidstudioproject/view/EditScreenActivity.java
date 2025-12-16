@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,9 +28,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditScreenActivity extends AppCompatActivity {
-    Button btnSave;
+    Button btnSave, btnCancel;
 
-    EditText edtCode, edtName, edtFormat, edtRowCount, edtColCount;
+    EditText edtCode, edtName, edtRowCount, edtColCount;
+
+    Spinner spinnerFormat;
+
+    private final String [] formatOptions = {"2D", "3D", "4DX", "IMAX", "SCREEN X"};
 
     CheckBox cbIsActive;
 
@@ -43,6 +49,7 @@ public class EditScreenActivity extends AppCompatActivity {
             return insets;
         });
         addControls();
+        setupDropdown();
 
         Screen screen = (Screen) getIntent().getSerializableExtra("screen");
         int screenId = getIntent().getIntExtra("id", -1);
@@ -50,7 +57,8 @@ public class EditScreenActivity extends AppCompatActivity {
         if (screen != null) {
             edtCode.setText(screen.getCode());
             edtName.setText(screen.getName());
-            edtFormat.setText(screen.getFormat());
+            int formatPosition = ((ArrayAdapter<String>)spinnerFormat.getAdapter()).getPosition(screen.getFormat());
+            spinnerFormat.setSelection(formatPosition);
             edtRowCount.setText(String.valueOf(screen.getRowCount()));
             edtColCount.setText(String.valueOf(screen.getColCount()));
             cbIsActive.setChecked(screen.isActive());
@@ -62,12 +70,30 @@ public class EditScreenActivity extends AppCompatActivity {
                 updateScreen(screenId);
             }
         });
+        
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    private void setupDropdown() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                formatOptions
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFormat.setAdapter(adapter);
+        spinnerFormat.setSelection(0);
     }
 
     private void updateScreen(int screenId) {
         String code = edtCode.getText().toString().trim();
         String name = edtName.getText().toString().trim();
-        String format = edtFormat.getText().toString().trim();
+        String format = spinnerFormat.getSelectedItem().toString().trim();
         int rowCount = Integer.parseInt(edtRowCount.getText().toString().trim());
         int colCount = Integer.parseInt(edtColCount.getText().toString().trim());
         boolean isActive = cbIsActive.isChecked();
@@ -109,13 +135,12 @@ public class EditScreenActivity extends AppCompatActivity {
 
     private void addControls() {
         btnSave = findViewById(R.id.save);
-
+        btnCancel = findViewById(R.id.cancel);
         edtCode = findViewById(R.id.code);
         edtName = findViewById(R.id.name);
-        edtFormat = findViewById(R.id.format);
+        spinnerFormat = findViewById(R.id.format);
         edtRowCount = findViewById(R.id.rowcount);
         edtColCount = findViewById(R.id.columncount);
-
         cbIsActive = findViewById(R.id.isactive);
     }
 }

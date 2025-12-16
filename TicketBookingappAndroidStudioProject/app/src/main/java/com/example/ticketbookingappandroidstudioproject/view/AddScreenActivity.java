@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,9 +27,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddScreenActivity extends AppCompatActivity {
-    Button btnAdd;
+    Button btnAdd, btnCancel;
 
-    EditText edtCode, edtName, edtFormat, edtRowCount, edtColCount;
+    Spinner spinnerFormat;
+
+    EditText edtCode, edtName, edtRowCount, edtColCount;
+
+    private final String [] formatOptions = {"2D", "3D", "4DX", "IMAX", "SCREEN X"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +46,27 @@ public class AddScreenActivity extends AppCompatActivity {
             return insets;
         });
         addControls();
+        setupDropdown();
         addEvents();
+    }
+
+    private void setupDropdown() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                formatOptions
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFormat.setAdapter(adapter);
+        spinnerFormat.setSelection(0);
     }
 
     private void addControls() {
         btnAdd = findViewById(R.id.add);
-
+        btnCancel = findViewById(R.id.cancel);
         edtCode = findViewById(R.id.code);
         edtName = findViewById(R.id.name);
-        edtFormat = findViewById(R.id.format);
+        spinnerFormat = findViewById(R.id.format);
         edtRowCount = findViewById(R.id.rowcount);
         edtColCount = findViewById(R.id.columncount);
     }
@@ -60,13 +78,20 @@ public class AddScreenActivity extends AppCompatActivity {
                 addScreen();
             }
         });
+        
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void addScreen() {
         int rowCount = 0, colCount = 0;
         String code = edtCode.getText().toString().trim();
         String name = edtName.getText().toString().trim();
-        String format = edtFormat.getText().toString().trim();
+        String format = spinnerFormat.getSelectedItem().toString().trim();
         rowCount = Integer.parseInt(edtRowCount.getText().toString().trim());
         colCount = Integer.parseInt(edtColCount.getText().toString().trim());
 
@@ -91,7 +116,7 @@ public class AddScreenActivity extends AppCompatActivity {
                         Toast.makeText(AddScreenActivity.this, "Screen added successfully.", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(AddScreenActivity.this, "Failed to add screen: " + response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddScreenActivity.this, "Failed to add screen: " + response.message(), Toast.LENGTH_LONG).show();
                     }
                 }
 

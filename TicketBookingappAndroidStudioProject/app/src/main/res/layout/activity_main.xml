@@ -54,31 +54,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/header"
-        android:textSize="15sp"
-        android:background="#23094E"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:text="Phim"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"/>
-
-    <!-- Header admin: sẽ được ẩn/hiện -->
-    <TextView
-        android:id="@+id/headerAdmin"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#23094E"
-        android:gravity="center"
-        android:text="Admin Dashboard"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:visibility="gone" /> <!-- Mặc định ẩn -->
-
     <!-- Thanh search cua customer -->
     <EditText
         android:id="@+id/edtSearch"
@@ -94,7 +69,6 @@
         android:padding="12dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
-
 
     <!-- Fragment container de thay the noi dung -->
     <androidx.fragment.app.FragmentContainerView

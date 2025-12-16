@@ -61,8 +61,7 @@ public class Fragment_screen_admin extends Fragment {
         btnImax = view.findViewById(R.id.loaiimax);
         btnScreenX = view.findViewById(R.id.loaiscreenx);
         btn4DX = view.findViewById(R.id.loai4dx);
-        
-        // NOTE: DÒNG NÀY ĐÃ BỊ THIẾU. Thêm vào để ánh xạ nút Add.
+
         btnAdd = view.findViewById(R.id.btnAdd);
 
         ScreenList = new ArrayList<>();
