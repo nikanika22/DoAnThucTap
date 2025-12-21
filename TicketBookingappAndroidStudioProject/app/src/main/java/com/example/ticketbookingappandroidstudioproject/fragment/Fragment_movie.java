@@ -45,7 +45,6 @@ public class Fragment_movie extends Fragment {
 
         adapter=new MyMovieAdapter(getActivity(),R.layout.item_movie,movieList);
         listView.setAdapter(adapter);
-
         fetchMovies(new HashMap<>());
 
         return view;

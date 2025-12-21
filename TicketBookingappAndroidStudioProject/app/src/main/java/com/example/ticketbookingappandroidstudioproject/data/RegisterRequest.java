@@ -1,4 +1,4 @@
-package com.example.ticketbookingappandroidstudioproject.model;
+package com.example.ticketbookingappandroidstudioproject.data;
 
 public class RegisterRequest {
     private String email;

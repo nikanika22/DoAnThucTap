@@ -4,13 +4,15 @@ import com.example.ticketbookingappandroidstudioproject.data.AccountsData;
 import com.example.ticketbookingappandroidstudioproject.data.ApiResponse;
 import com.example.ticketbookingappandroidstudioproject.data.MoviesData;
 import com.example.ticketbookingappandroidstudioproject.data.ScreensData;
+import com.example.ticketbookingappandroidstudioproject.data.ShowTimesData;
 import com.example.ticketbookingappandroidstudioproject.model.Account;
 import com.example.ticketbookingappandroidstudioproject.model.Movie;
 import com.example.ticketbookingappandroidstudioproject.model.Screen;
-import com.example.ticketbookingappandroidstudioproject.model.LoginData;
-import com.example.ticketbookingappandroidstudioproject.model.LoginRequest;
-import com.example.ticketbookingappandroidstudioproject.model.RegisterData;
-import com.example.ticketbookingappandroidstudioproject.model.RegisterRequest;
+import com.example.ticketbookingappandroidstudioproject.data.LoginData;
+import com.example.ticketbookingappandroidstudioproject.data.LoginRequest;
+import com.example.ticketbookingappandroidstudioproject.data.RegisterData;
+import com.example.ticketbookingappandroidstudioproject.data.RegisterRequest;
+import com.example.ticketbookingappandroidstudioproject.model.ShowTime;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -30,7 +32,7 @@ import retrofit2.http.QueryMap;
 
 public interface ApiService {
 
-    //http://127.0.0.1:8000/api/login
+    // http://127.0.0.1:8000/api/login
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     ApiService apiService = new Retrofit.Builder()
             .baseUrl("http://10.0.2.2:8000/api/")
@@ -57,13 +59,15 @@ public interface ApiService {
     Call<Void> deleteMovie(@Header("Authorization") String authToken, @Path("id") int movieId);
 
     @PUT("movies/{id}")
-    Call<ApiResponse> updateMovie(@Header("Authorization") String authToken, @Path("id") int movieId, @Body Movie movie);
+    Call<ApiResponse> updateMovie(@Header("Authorization") String authToken, @Path("id") int movieId,
+            @Body Movie movie);
 
     @DELETE("screens/{id}")
     Call<Void> deleteScreen(@Header("Authorization") String authToken, @Path("id") int screenId);
 
     @PUT("screens/{id}")
-    Call<ApiResponse> updateScreen(@Header("Authorization") String authToken, @Path("id") int screenId, @Body Screen screen);
+    Call<ApiResponse> updateScreen(@Header("Authorization") String authToken, @Path("id") int screenId,
+            @Body Screen screen);
 
     @GET("screens")
     Call<ScreensData> getScreens(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
@@ -75,12 +79,16 @@ public interface ApiService {
     Call<Void> deleteAccount(@Header("Authorization") String authToken, @Path("id") int accountId);
 
     @PUT("accounts/{id}")
-    Call<ApiResponse> updateAccount(@Header("Authorization") String authToken, @Path("id") int accountId, @Body Account account);
+    Call<ApiResponse> updateAccount(@Header("Authorization") String authToken, @Path("id") int accountId,
+            @Body Account account);
 
     @GET("accounts")
     Call<AccountsData> getAccounts(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
 
     @POST("accounts")
     Call<ApiResponse> addAccount(@Header("Authorization") String authToken, @Body Account account);
+
+    @GET("movies/{movieId}/showtimes")
+    Call<ShowTimesData> getShowtimesByMovieId(@Path("movieId") int movieId);
 
 }

@@ -17,8 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ticketbookingappandroidstudioproject.R;
 import com.example.ticketbookingappandroidstudioproject.api.ApiService;
-import com.example.ticketbookingappandroidstudioproject.model.LoginData;
-import com.example.ticketbookingappandroidstudioproject.model.LoginRequest;
+import com.example.ticketbookingappandroidstudioproject.data.LoginData;
+import com.example.ticketbookingappandroidstudioproject.data.LoginRequest;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("account", loginData.getData().getAccount());
                             startActivity(intent);
-                            finish();
                         } else {
                             Toast.makeText(LoginActivity.this, "Login failed: Invalid data", Toast.LENGTH_SHORT).show();
                         }

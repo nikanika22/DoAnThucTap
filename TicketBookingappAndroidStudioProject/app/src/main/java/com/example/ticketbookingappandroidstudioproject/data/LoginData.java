@@ -1,5 +1,6 @@
-package com.example.ticketbookingappandroidstudioproject.model;
+package com.example.ticketbookingappandroidstudioproject.data;
 
+import com.example.ticketbookingappandroidstudioproject.model.Account;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginData {

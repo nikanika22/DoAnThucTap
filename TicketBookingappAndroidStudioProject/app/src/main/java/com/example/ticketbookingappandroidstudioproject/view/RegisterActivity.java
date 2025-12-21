@@ -15,8 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ticketbookingappandroidstudioproject.R;
 import com.example.ticketbookingappandroidstudioproject.api.ApiService;
-import com.example.ticketbookingappandroidstudioproject.model.RegisterData;
-import com.example.ticketbookingappandroidstudioproject.model.RegisterRequest;
+import com.example.ticketbookingappandroidstudioproject.data.RegisterData;
+import com.example.ticketbookingappandroidstudioproject.data.RegisterRequest;
 
 import retrofit2.Call;
 import retrofit2.Callback;

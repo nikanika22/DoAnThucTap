@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view.ShowTimesActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.UpdateAccountActivity"
             android:exported="false" />
         <activity
@@ -51,12 +54,10 @@
         <activity
             android:name=".view.MainActivity"
             android:exported="false" />
-            android:exported="false">
         <activity
             android:name=".view.SeatSelectionActivity"
             android:exported="false"
-            android:theme="@style/Theme.TicketBookingAppAndroidStudioProject">
-        </activity>
+            android:theme="@style/Theme.TicketBookingAppAndroidStudioProject"></activity>
     </application>
 
 </manifest>

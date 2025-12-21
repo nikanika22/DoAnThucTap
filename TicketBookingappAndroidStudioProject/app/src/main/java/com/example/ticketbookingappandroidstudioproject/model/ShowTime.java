@@ -1,47 +1,41 @@
 package com.example.ticketbookingappandroidstudioproject.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class ShowTime implements Serializable {
+
+    @SerializedName("id")
     private int id;
-    private int movieId;            // movie_id - khớp với database
-    private int screenId;           // screen_id - khớp với database
-    private Date startAt;           // start_at (datetime) - khớp với database
-    private Date endAt;             // end_at (datetime) - khớp với database
-    private int basePrice;          // base_price (giá vé cơ bản) - khớp với database
-    private String status;          // SCHEDULED, OPEN, CLOSED, CANCELLED - khớp với database
 
-    // Fields bổ sung cho UI
-    private String time;            // Format: "19:30" (từ startAt)
-    private String date;            // Format: "30/11/2025" (từ startAt)
-    private String format;          // 2D, 3D, IMAX (lấy từ screen.format)
+    @SerializedName("movie_id")
+    private int movieId;
 
-    public ShowTime() {
-        this.status = "OPEN";
+    @SerializedName("screen_id")
+    private int screenId;
+
+    @SerializedName("start_at")
+    private String startAt;  // "2024-12-16T09:00:00.000000Z"
+
+    @SerializedName("end_at")
+    private String endAt;
+
+    @SerializedName("base_price")
+    private int basePrice;
+
+    @SerializedName("status")
+    private String status;
+
+    public String getEndAt() {
+        return endAt;
     }
 
-    // Constructor tương thích với code cũ
-    public ShowTime(int id, String time, String date, String format) {
-        this.id = id;
-        this.time = time;
-        this.date = date;
-        this.format = format;
-        this.status = "OPEN";
-    }
-
-    // Constructor đầy đủ từ database
-    public ShowTime(int id, int movieId, int screenId, Date startAt, Date endAt, int basePrice, String status) {
-        this.id = id;
-        this.movieId = movieId;
-        this.screenId = screenId;
-        this.startAt = startAt;
+    public void setEndAt(String endAt) {
         this.endAt = endAt;
-        this.basePrice = basePrice;
-        this.status = status;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -66,20 +60,12 @@ public class ShowTime implements Serializable {
         this.screenId = screenId;
     }
 
-    public Date getStartAt() {
+    public String getStartAt() {
         return startAt;
     }
 
-    public void setStartAt(Date startAt) {
+    public void setStartAt(String startAt) {
         this.startAt = startAt;
-    }
-
-    public Date getEndAt() {
-        return endAt;
-    }
-
-    public void setEndAt(Date endAt) {
-        this.endAt = endAt;
     }
 
     public int getBasePrice() {
@@ -98,53 +84,18 @@ public class ShowTime implements Serializable {
         this.status = status;
     }
 
-    public String getTime() {
-        return time;
+    public ShowTime() {
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
-    // Methods tương thích với code cũ
-    public int getCinemaId() {
-        return screenId; // Tạm map screen_id thành cinema_id
-    }
-
-    public void setCinemaId(int cinemaId) {
-        this.screenId = cinemaId;
-    }
-
-    public int getRoomId() {
-        return screenId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.screenId = roomId;
-    }
-
-    public boolean isAvailable() {
-        return "OPEN".equals(status);
-    }
-
-    public void setAvailable(boolean available) {
-        this.status = available ? "OPEN" : "CLOSED";
+    public ShowTime(String endAt, int id, int movieId, int screenId, String startAt, int basePrice, String status) {
+        this.endAt = endAt;
+        this.id = id;
+        this.movieId = movieId;
+        this.screenId = screenId;
+        this.startAt = startAt;
+        this.basePrice = basePrice;
+        this.status = status;
     }
 }
+
 

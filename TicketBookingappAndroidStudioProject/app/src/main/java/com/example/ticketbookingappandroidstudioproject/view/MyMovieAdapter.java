@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.example.ticketbookingappandroidstudioproject.R;
 import com.example.ticketbookingappandroidstudioproject.model.Movie;
 
-
 import java.util.List;
 
 public class MyMovieAdapter extends ArrayAdapter<Movie> {
@@ -59,13 +58,10 @@ public class MyMovieAdapter extends ArrayAdapter<Movie> {
         btnDatVe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Mở màn hình chọn ghế
-                Intent intent = new Intent(context, SeatSelectionActivity.class);
+                // Mở màn hình xem suất chiếu
+                Intent intent = new Intent(context, ShowTimesActivity.class);
                 intent.putExtra("MOVIE_ID", movie.getId());
                 intent.putExtra("MOVIE_TITLE", movie.getTitle());
-                intent.putExtra("SHOW_TIME", "19:30 - 30/11/2025"); // Có thể lấy từ movie nếu có
-                intent.putExtra("ROOM_ID", 1); // Có thể dynamic
-                intent.putExtra("ROOM_NAME", "A1"); // Có thể dynamic
                 context.startActivity(intent);
             }
         });
