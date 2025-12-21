@@ -1,19 +1,24 @@
 package com.example.ticketbookingappandroidstudioproject.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Product implements Serializable {
+    @SerializedName("id")
     private int id;
+    @SerializedName("name")
     private String name;
-    private int price;
+    @SerializedName("price")
+    private double price;
+    @SerializedName("is_active")
     private boolean isActive;
 
     public Product() {
         this.isActive = true;
     }
 
-    public Product(int id, String name, int price, boolean isActive) {
-        this.id = id;
+    public Product(String name, double price, boolean isActive) {
         this.name = name;
         this.price = price;
         this.isActive = isActive;
@@ -36,11 +41,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
