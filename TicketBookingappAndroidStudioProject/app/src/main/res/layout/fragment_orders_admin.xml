@@ -1,14 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     android:orientation="vertical"
-    android:background="@color/black">
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quản lý Đơn Hàng"
+        android:textSize="24sp"
+        android:textColor="#1a1a1a"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_search_edittext"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:layout_marginBottom="12dp">
+
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="Tìm kiếm theo mã đơn, tên khách..."
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="#1a1a1a"
+            android:textColorHint="#999999"
+            android:textSize="14sp"/>
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Tìm kiếm"
+            android:scaleType="centerInside"
+            android:src="@drawable/search"
+            app:tint="#E91E63"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lọc theo trạng thái"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnFilterInit"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#FF9800"
+                android:paddingHorizontal="16dp"
+                android:text="INIT"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"/>
+
+            <Button
+                android:id="@+id/btnFilterPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#4CAF50"
+                android:paddingHorizontal="16dp"
+                android:text="PAID"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"/>
+
+            <Button
+                android:id="@+id/btnFilterCancelled"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:backgroundTint="#F44336"
+                android:paddingHorizontal="16dp"
+                android:text="CANCELLED"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <ListView
         android:id="@+id/listViewOrders"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"/>
 
 </LinearLayout>

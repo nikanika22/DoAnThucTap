@@ -1,21 +1,33 @@
 package com.example.ticketbookingappandroidstudioproject.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class ShowTime implements Serializable {
+    @SerializedName("id")
     private int id;
+    @SerializedName("movie_id")
     private int movieId;            // movie_id - khớp với database
+    @SerializedName("screen_id")
     private int screenId;           // screen_id - khớp với database
+    @SerializedName("start_at")
     private Date startAt;           // start_at (datetime) - khớp với database
+    @SerializedName("end_at")
     private Date endAt;             // end_at (datetime) - khớp với database
+    @SerializedName("base_price")
     private int basePrice;          // base_price (giá vé cơ bản) - khớp với database
+    @SerializedName("status")
     private String status;          // SCHEDULED, OPEN, CLOSED, CANCELLED - khớp với database
 
     // Fields bổ sung cho UI
     private String time;            // Format: "19:30" (từ startAt)
     private String date;            // Format: "30/11/2025" (từ startAt)
     private String format;          // 2D, 3D, IMAX (lấy từ screen.format)
+
+    private Movie movie;
+    private Screen screen;
 
     public ShowTime() {
         this.status = "OPEN";
@@ -145,6 +157,22 @@ public class ShowTime implements Serializable {
 
     public void setAvailable(boolean available) {
         this.status = available ? "OPEN" : "CLOSED";
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public void setScreen(Screen screen) {
+        this.screen = screen;
     }
 }
 

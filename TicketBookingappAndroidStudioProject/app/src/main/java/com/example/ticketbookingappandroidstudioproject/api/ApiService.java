@@ -3,10 +3,12 @@ package com.example.ticketbookingappandroidstudioproject.api;
 import com.example.ticketbookingappandroidstudioproject.data.AccountsData;
 import com.example.ticketbookingappandroidstudioproject.data.ApiResponse;
 import com.example.ticketbookingappandroidstudioproject.data.MoviesData;
+import com.example.ticketbookingappandroidstudioproject.data.OrdersData;
 import com.example.ticketbookingappandroidstudioproject.data.ProductsData;
 import com.example.ticketbookingappandroidstudioproject.data.ScreensData;
 import com.example.ticketbookingappandroidstudioproject.model.Account;
 import com.example.ticketbookingappandroidstudioproject.model.Movie;
+import com.example.ticketbookingappandroidstudioproject.model.Order;
 import com.example.ticketbookingappandroidstudioproject.model.Product;
 import com.example.ticketbookingappandroidstudioproject.model.Screen;
 import com.example.ticketbookingappandroidstudioproject.model.LoginData;
@@ -35,7 +37,7 @@ public interface ApiService {
     //http://127.0.0.1:8000/api/login
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http:// 192.168.137.240:8000/api/")
+            .baseUrl("http://10.0.2.2:8000/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
@@ -97,4 +99,12 @@ public interface ApiService {
     @GET("products")
     Call<ProductsData> getProducts(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
 
+    @GET("orders/{id}")
+    Call<Order> getOrderById(@Header("Authorization") String authToken, @Path("id") int orderId);
+
+    @GET("orders")
+    Call<OrdersData> getAllOrders(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
+
+    @PUT("orders/{id}")
+    Call<ApiResponse> updateOrder(@Header("Authorization") String authToken, @Path("id") int orderId, @Body Order order);
 }

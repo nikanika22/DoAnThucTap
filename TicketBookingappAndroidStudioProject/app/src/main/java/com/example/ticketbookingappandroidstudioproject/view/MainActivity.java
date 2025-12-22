@@ -19,6 +19,7 @@ import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_accoun
 import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_account_admin;
 import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_movie;
 import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_movie_admin;
+import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_order_admin;
 import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_product_admin;
 import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_screen_admin;
 import com.example.ticketbookingappandroidstudioproject.model.Account;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.tabScreen).setOnClickListener(v -> loadFragment(new Fragment_screen_admin()));
             findViewById(R.id.tabAccount).setOnClickListener(v -> loadFragment(new Fragment_account_admin()));
             findViewById(R.id.tabProduct).setOnClickListener(v -> loadFragment(new Fragment_product_admin()));
+            findViewById(R.id.tabOrder).setOnClickListener(v -> loadFragment(new Fragment_order_admin()));
 
             loadFragment(new Fragment_movie_admin());
 
