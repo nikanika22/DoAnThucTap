@@ -1,6 +1,7 @@
 package com.example.ticketbookingappandroidstudioproject.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -14,12 +15,18 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ticketbookingappandroidstudioproject.R;
+import com.example.ticketbookingappandroidstudioproject.api.ApiService;
+import com.example.ticketbookingappandroidstudioproject.data.SeatMapResponse;
 import com.example.ticketbookingappandroidstudioproject.model.Seat;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SeatSelectionActivity extends AppCompatActivity implements SeatAdapter.OnSeatClickListener {
 
@@ -41,7 +48,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements SeatAdap
 
         initViews();
         setupToolbar();
-        loadSampleSeats(); // Load dữ liệu mẫu
+        LoadSeatsFromAPI(); // Load dữ liệu mẫu
         setupRecyclerView();
         setupButtons();
     }
@@ -87,35 +94,49 @@ public class SeatSelectionActivity extends AppCompatActivity implements SeatAdap
         });
     }
 
-    private void loadSampleSeats() {
+    private void LoadSeatsFromAPI() {
         allSeats = new ArrayList<>();
 
         // Nhận thông tin từ Intent
         Intent intent = getIntent();
-        String movieTitle = intent.getStringExtra("MOVIE_TITLE");
-        String showTime = intent.getStringExtra("SHOW_TIME");
-        String roomName = intent.getStringExtra("ROOM_NAME");
+        String showTime = intent.getStringExtra("Time");
         int movieId = intent.getIntExtra("MOVIE_ID", 0);
         int roomId = intent.getIntExtra("ROOM_ID", 0);
-
-        // Tạo dữ liệu mẫu - 10 hàng x 8 ghế
-        String[] rows = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
-
-        int id = 1;
-        for (String row : rows) {
-            for (int number = 1; number <= SEATS_PER_ROW; number++) {
-                String status = "available";
-                double price = 75000; // Giá mặc định
-                Seat seat = new Seat(id++, row, number, "standard", status, price);
-                seat.setRoomId(roomId);
-                allSeats.add(seat);
-            }
-        }
-
+        int showTimeId = intent.getIntExtra("SHOWTIME_ID", 0);
+        String roomName = intent.getStringExtra("Screen");
+        String movieTitle=intent.getStringExtra("MOVIE_TITLE");
         // Set thông tin phim từ Intent hoặc dữ liệu mẫu
         tvMovieTitle.setText(movieTitle != null ? movieTitle : "Bad Boys: Ride or Die");
         tvShowTime.setText(showTime != null ? showTime : "Suất chiếu: 19:30 - 30/11/2025");
         tvCinemaRoom.setText(roomName != null ? "Phòng chiếu: " + roomName : "Phòng chiếu: A1");
+        SharedPreferences prefs=getSharedPreferences("YourAppPrefs",MODE_PRIVATE);
+        String token=prefs.getString("token",null);
+        // Load dữ liệu ghế từ API hoặc dữ liệu mẫu
+        String bearerToken="Bearer "+token;
+        ApiService.apiService.getSeatMap(bearerToken,showTimeId).enqueue(new Callback<SeatMapResponse>() {
+            @Override
+            public void onResponse(Call<SeatMapResponse> call, Response<SeatMapResponse> response) {
+                if(response.isSuccessful()&& response.body()!=null)
+                {
+                    SeatMapResponse seatMapResponse=response.body();
+                    if(seatMapResponse.isSuccess()&&seatMapResponse.getData()!=null)
+                    {
+                        allSeats.addAll(seatMapResponse.getData());
+                        seatAdapter.updateSeats(allSeats);
+                    }
+                }
+                else
+                {
+                    Toast.makeText(SeatSelectionActivity.this, "lỗi load ghế", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SeatMapResponse> call, Throwable t) {
+                Toast.makeText(SeatSelectionActivity.this, "lỗi kết nối "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

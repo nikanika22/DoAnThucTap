@@ -131,32 +131,21 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
             tvSeat.setEnabled(isClickable);
             setupClickListener(seat, isClickable);
         }
-
-        /**
-         *  getBackgroundBySeatStatus - Lấy drawable dựa trên trạng thái ghế
-         *
-         * @param status Trạng thái: "available", "selected", "sold"
-         * @return ID của drawable tương ứng
-         */
         private int getBackgroundBySeatStatus(String status) {
-            // Chuyển status thành chữ thường để so sánh (VD: "Available" → "available")
             String statusLower = status.toLowerCase();
 
-            // Kiểm tra trạng thái và trả về drawable tương ứng
             if (statusLower.equals("available")) {
-                // Ghế còn trống → Xanh lá
                 return R.drawable.seat_available;
 
             } else if (statusLower.equals("selected")) {
-                // Đã được chọn → Xanh dương
                 return R.drawable.seat_selected;
 
-            } else if (statusLower.equals("sold")) {
-                // Đã bán → Đỏ
+            } else if (statusLower.equals("sold") ||
+                    statusLower.equals("booked") ||
+                    statusLower.equals("locked") ||
+                    statusLower.equals("blocked")) {
                 return R.drawable.seat_sold;
-
             } else {
-                // Mặc định → Xanh lá
                 return R.drawable.seat_available;
             }
         }

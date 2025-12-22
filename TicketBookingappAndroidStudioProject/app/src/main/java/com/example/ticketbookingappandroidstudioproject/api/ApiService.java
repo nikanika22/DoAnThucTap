@@ -4,6 +4,7 @@ import com.example.ticketbookingappandroidstudioproject.data.AccountsData;
 import com.example.ticketbookingappandroidstudioproject.data.ApiResponse;
 import com.example.ticketbookingappandroidstudioproject.data.MoviesData;
 import com.example.ticketbookingappandroidstudioproject.data.ScreensData;
+import com.example.ticketbookingappandroidstudioproject.data.SeatMapResponse;
 import com.example.ticketbookingappandroidstudioproject.data.ShowTimesData;
 import com.example.ticketbookingappandroidstudioproject.model.Account;
 import com.example.ticketbookingappandroidstudioproject.model.Movie;
@@ -12,7 +13,6 @@ import com.example.ticketbookingappandroidstudioproject.data.LoginData;
 import com.example.ticketbookingappandroidstudioproject.data.LoginRequest;
 import com.example.ticketbookingappandroidstudioproject.data.RegisterData;
 import com.example.ticketbookingappandroidstudioproject.data.RegisterRequest;
-import com.example.ticketbookingappandroidstudioproject.model.ShowTime;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -90,5 +90,8 @@ public interface ApiService {
 
     @GET("movies/{movieId}/showtimes")
     Call<ShowTimesData> getShowtimesByMovieId(@Path("movieId") int movieId);
+
+    @GET("showtimes/{showtime_id}/seat-map")
+    Call<SeatMapResponse> getSeatMap(@Header("Authorization") String authToken, @Path("showtime_id") int showtimeId);
 
 }

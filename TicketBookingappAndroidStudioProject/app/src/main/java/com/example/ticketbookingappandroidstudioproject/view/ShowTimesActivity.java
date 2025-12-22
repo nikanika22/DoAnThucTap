@@ -1,5 +1,6 @@
 package com.example.ticketbookingappandroidstudioproject.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -10,7 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.ticketbookingappandroidstudioproject.adapter.ShowtimeAdapter;
+
 import com.example.ticketbookingappandroidstudioproject.R;
 import com.example.ticketbookingappandroidstudioproject.api.ApiService;
 import com.example.ticketbookingappandroidstudioproject.data.ShowTimesData;
@@ -32,6 +33,8 @@ public class ShowTimesActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     ShowtimeAdapter adapter;
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +46,13 @@ public class ShowTimesActivity extends AppCompatActivity {
             return insets;
         });
         int movieId = getIntent().getIntExtra("MOVIE_ID", -1);
+        String moviesTitle = getIntent().getStringExtra("MOVIE_TITLE"); // ← FIX: Dùng getIntent()
 
         // Setup RecyclerView
         recyclerView = findViewById(R.id.recyclerViewShowtimes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ShowtimeAdapter(this);
+        adapter = new ShowtimeAdapter(this, moviesTitle);
         recyclerView.setAdapter(adapter);
         loadShowTimes(movieId);
     }
@@ -58,47 +62,42 @@ public class ShowTimesActivity extends AppCompatActivity {
         ApiService.apiService.getShowtimesByMovieId(movieId).enqueue(new Callback<ShowTimesData>() {
             @Override
             public void onResponse(Call<ShowTimesData> call, Response<ShowTimesData> response) {
-                 if(response.isSuccessful() && response.body()!=null)
-                 {
-                     List<ShowTime> showTimes =response.body().getShowtimes();
-                      if(showTimes!=null && !showTimes.isEmpty())
-                      {
-                          List<ShowTimeItems> items = convertShowTimesWithHeader(showTimes);
-                          adapter.updateData(items);
-                      }
-                      else
-                      {
-                          Toast.makeText(ShowTimesActivity.this, "No showtimes found.", Toast.LENGTH_SHORT).show();
-                      }
-                 }
-                 else
-                 {
-                     Toast.makeText(ShowTimesActivity.this, "Failed to load showtimes: " + response.message(), Toast.LENGTH_SHORT);
-                 }
+                if (response.isSuccessful() && response.body() != null) {
+                    List<ShowTime> showTimes = response.body().getShowtimes();
+                    if (showTimes != null && !showTimes.isEmpty()) {
+                        List<ShowTimeItems> items = convertShowTimesWithHeader(showTimes);
+                        adapter.updateData(items);
+                    } else {
+                        Toast.makeText(ShowTimesActivity.this, "No showtimes found.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(ShowTimesActivity.this, "Failed to load showtimes: " + response.message(),
+                            Toast.LENGTH_SHORT);
+                }
             }
 
             @Override
             public void onFailure(Call<ShowTimesData> call, Throwable t) {
-                Toast.makeText(ShowTimesActivity.this,"Lỗi kết nối mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShowTimesActivity.this, "Lỗi kết nối mạng: " + t.getMessage(), Toast.LENGTH_SHORT)
+                        .show();
             }
         });
     }
+
     /**
      * Chuyển đổi List<ShowTime> → List<ShowtimeItem> (có header)
      * Logic đơn giản: Nhóm theo ngày, chèn header
      */
     private List<ShowTimeItems> convertShowTimesWithHeader(List<ShowTime> showTimes) {
-        List<ShowTimeItems> items=new ArrayList<>();
-        //map để nhóm theo ngày
-        Map<String,List<ShowTime>> grouped=new LinkedHashMap<>();
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        //Nhom theo ngày
-        for(ShowTime showTime:showTimes)
-        {
-            String date=showTime.getStartAt().substring(0,10);
-            if(!grouped.containsKey(date))
-            {
-                grouped.put(date,new ArrayList<>());
+        List<ShowTimeItems> items = new ArrayList<>();
+        // map để nhóm theo ngày
+        Map<String, List<ShowTime>> grouped = new LinkedHashMap<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        // Nhom theo ngày
+        for (ShowTime showTime : showTimes) {
+            String date = showTime.getStartAt().substring(0, 10);
+            if (!grouped.containsKey(date)) {
+                grouped.put(date, new ArrayList<>());
             }
             grouped.get(date).add(showTime);
 
