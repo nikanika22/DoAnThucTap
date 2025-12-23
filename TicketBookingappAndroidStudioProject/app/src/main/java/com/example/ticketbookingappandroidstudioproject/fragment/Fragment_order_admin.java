@@ -65,36 +65,21 @@ public class Fragment_order_admin extends Fragment {
 
         fetchOrders(new HashMap<>());
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-//                String nameQuery = edtSearch.getText().toString().trim();
-//                Map<String, String> options = new HashMap<>();
-//                if (!nameQuery.isEmpty()) {
-//                    options.put("name", nameQuery);
-//                }
-//                fetchOrders(options);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-                edtSearch.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void afterTextChanged(Editable s) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
-                    }
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        String tim = edtSearch.getText().toString();
-                        adapter.getFilter().filter(tim);
-                    }
-                });
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keyword = s.toString().trim();
+                fetchOrders(new HashMap<>());
             }
         });
-        View.OnClickListener genreClickListener = new View.OnClickListener() {
+
+        View.OnClickListener statusFilter = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Button clickedButton = (Button) v;
@@ -104,6 +89,10 @@ public class Fragment_order_admin extends Fragment {
                 fetchOrders(options);
             }
         };
+
+        init.setOnClickListener(statusFilter);
+        paid.setOnClickListener(statusFilter);
+        cancelled.setOnClickListener(statusFilter);
 
         return view;
     }

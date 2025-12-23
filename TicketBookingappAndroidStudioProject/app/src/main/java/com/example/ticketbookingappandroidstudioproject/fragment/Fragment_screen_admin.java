@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,27 +70,28 @@ public class Fragment_screen_admin extends Fragment {
         adapter = new MyScreenAdapterAdmin(getActivity(), R.layout.item_screen_admin, ScreenList);
         listView.setAdapter(adapter);
 
-        fetchScreens(new HashMap<>());
+        fetchScreens("");
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                String Query = edtSearch.getText().toString().trim();
-                Map<String, String> options = new HashMap<>();
-                if (!Query.isEmpty()) {
-                    options.put("name", Query);
-                }
-                fetchScreens(options);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keyword = s.toString().trim();
+                fetchScreens(keyword);
             }
         });
+
         View.OnClickListener genreClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Button clickedButton = (Button) v;
                 String format = clickedButton.getText().toString();
-                Map<String, String> options = new HashMap<>();
-                options.put("format", format);
-                fetchScreens(options);
+                fetchScreens(format);
             }
         };
         btn2D.setOnClickListener(genreClickListener);
@@ -108,7 +111,13 @@ public class Fragment_screen_admin extends Fragment {
         return view;
     }
 
-    private void fetchScreens(Map<String, String> options) {
+    private void fetchScreens(String keyword) {
+        Map<String, String> options = new HashMap<>();
+
+        if (!keyword.isEmpty()) {
+            options.put("keyword", keyword);
+        }
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString("auth_token", null);
 
@@ -146,6 +155,6 @@ public class Fragment_screen_admin extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        fetchScreens(new HashMap<>());
+        fetchScreens("");
     }
 }

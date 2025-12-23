@@ -26,7 +26,7 @@ public class Order implements Serializable {
     private Account account;
     private ShowTime showtime;
 
-    private List<OrderLine> orderLines;
+    private List<OrderLine> order_lines;
 
     public Order() {
         this.channel = "WEB";
@@ -126,10 +126,10 @@ public class Order implements Serializable {
     }
 
     public List<OrderLine> getOrderLines() {
-        return orderLines;
+        return order_lines;
     }
     public void setOrderLines(List<OrderLine> orderLines) {
-        this.orderLines = orderLines;
+        this.order_lines = orderLines;
     }
 }
 

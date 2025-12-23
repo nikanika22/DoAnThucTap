@@ -1,14 +1,23 @@
 package com.example.ticketbookingappandroidstudioproject.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Seat implements Serializable {
+    @SerializedName("id")
     private int id;
+    @SerializedName("screen_id")
     private int screenId;           // screen_id - khớp với database
+    @SerializedName("row_label")
     private String rowLabel;        // row_label (A, B, C...) - khớp với database
+    @SerializedName("seat_number")
     private int seatNumber;         // seat_number (1, 2, 3...) - khớp với database
+    @SerializedName("seat_type")
     private String seatType;        // STANDARD, VIP, COUPLE, ACCESSIBLE - khớp với database
+    @SerializedName("is_aisle")
     private boolean isAisle;        // is_aisle - khớp với database
+    @SerializedName("is_blocked")
     private boolean isBlocked;      // is_blocked - khớp với database
 
     // Fields cho trạng thái booking (không lưu trong DB seat table)

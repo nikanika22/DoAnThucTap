@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,27 +68,28 @@ public class Fragment_movie_admin extends Fragment {
         adapter = new MyMovieAdapterAdmin(getActivity(), R.layout.item_movie_admin, movieList);
         listView.setAdapter(adapter);
 
-        fetchMovies(new HashMap<>());
+        fetchMovies("");
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                String titleQuery = edtSearch.getText().toString().trim();
-                Map<String, String> options = new HashMap<>();
-                if (!titleQuery.isEmpty()) {
-                    options.put("title", titleQuery);
-                }
-                fetchMovies(options);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keyword = s.toString().trim();
+                fetchMovies(keyword);
             }
         });
+
         View.OnClickListener genreClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Button clickedButton = (Button) v;
                 String genre = clickedButton.getText().toString();
-                Map<String, String> options = new HashMap<>();
-                options.put("genre", genre);
-                fetchMovies(options);
+                fetchMovies(genre);
             }
         };
 
@@ -106,7 +109,13 @@ public class Fragment_movie_admin extends Fragment {
         return view;
     }
 
-    private void fetchMovies(Map<String, String> options) {
+    private void fetchMovies(String keyword) {
+        Map<String, String> options = new HashMap<>();
+
+        if (!keyword.isEmpty()) {
+            options.put("keyword", keyword);
+        }
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString("auth_token", null);
 
@@ -142,6 +151,6 @@ public class Fragment_movie_admin extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        fetchMovies(new HashMap<>());
+        fetchMovies("");
     }
 }

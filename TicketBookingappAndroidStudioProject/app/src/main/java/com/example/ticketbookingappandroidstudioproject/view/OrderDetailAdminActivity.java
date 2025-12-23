@@ -88,8 +88,8 @@ public class OrderDetailAdminActivity extends AppCompatActivity {
             
             total.setText(String.format("%,d VND", order.getTotalAmount()));
             method.setText(order.getPaymentMethod() != null ? order.getPaymentMethod() : "N/A");
-            ticket.setText("Không có");
-            product.setText("Không có");
+            ticket.setText(getSeats(order));
+            product.setText(getProduct(order));
 
             int statusIndex = 0;
             for (int i = 0; i < statusOptions.length; i++) {
@@ -155,5 +155,66 @@ public class OrderDetailAdminActivity extends AppCompatActivity {
     }
 
     private void saveStatus() {
+        Order order = (Order) getIntent().getSerializableExtra("order");
+        if (order != null) {
+            String selectedStatus = status.getSelectedItem().toString();
+
+            SharedPreferences sharedPreferences = getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
+            String token = sharedPreferences.getString("auth_token", null);
+
+            if (token != null) {
+                String bearerToken = "Bearer " + token;
+                ApiService.apiService.updateStatusOrder("Bearer " + token, order.getId(), selectedStatus).enqueue(new Callback<ApiResponse>() {
+                            @Override
+                            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                                if (response.isSuccessful() && response.body() != null) {
+                                    Toast.makeText(OrderDetailAdminActivity.this, "Order status updated successfully", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } else {
+                                    Toast.makeText(OrderDetailAdminActivity.this, "Failed to update order status", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                                Toast.makeText(OrderDetailAdminActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } else {
+                Toast.makeText(this, "You are not logged in.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public String getSeats(Order order) {
+        if (order.getOrderLines() == null || order.getOrderLines().isEmpty()) {
+            return "N/A";
+        }
+        StringBuilder seats = new StringBuilder();
+        for (int i = 0; i < order.getOrderLines().size(); i++) {
+            if (order.getOrderLines().get(i).getItemType().equals("TICKET")) {
+                String label = order.getOrderLines().get(i).getSeat().getRowLabel();
+                String number = String.valueOf(order.getOrderLines().get(i).getSeat().getSeatNumber());
+                String price = String.format(" %,d VND", (int) order.getOrderLines().get(i).getLineTotal());
+                seats.append(label).append(number).append(": ").append(price).append("\n");
+            }
+        }
+        return seats.toString();
+    }
+
+    public String getProduct(Order order) {
+        if (order.getOrderLines() == null || order.getOrderLines().isEmpty()) {
+            return "N/A";
+        }
+        StringBuilder products = new StringBuilder();
+        for (int i = 0; i < order.getOrderLines().size(); i++) {
+            if (order.getOrderLines().get(i).getItemType().equals("PRODUCT")) {
+                String name = order.getOrderLines().get(i).getProduct().getName();
+                int quantity = order.getOrderLines().get(i).getQuantity() + 1;
+                String price = String.format(" %,d VND", (int) order.getOrderLines().get(i).getProduct().getPrice());
+                products.append(name).append(" x").append(quantity).append(": ").append(price).append("\n");
+            }
+        }
+        return products.toString();
     }
 }

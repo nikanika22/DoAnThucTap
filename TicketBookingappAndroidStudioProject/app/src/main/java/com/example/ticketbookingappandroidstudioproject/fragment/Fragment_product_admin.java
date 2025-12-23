@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,17 +63,19 @@ public class Fragment_product_admin extends Fragment {
         adapter = new MyProductAdapterAdmin(getActivity(), R.layout.item_product_admin, ProductList);
         listView.setAdapter(adapter);
 
-        fetchProducts(new HashMap<>());
+        fetchProducts("");
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                String nameQuery = edtSearch.getText().toString().trim();
-                Map<String, String> options = new HashMap<>();
-                if (!nameQuery.isEmpty()) {
-                    options.put("name", nameQuery);
-                }
-                fetchProducts(options);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keyword = s.toString().trim();
+                fetchProducts(keyword);
             }
         });
 
@@ -86,7 +90,13 @@ public class Fragment_product_admin extends Fragment {
         return view;
     }
 
-    private void fetchProducts(Map<String, String> options) {
+    private void fetchProducts(String keyword) {
+        Map<String, String> options = new HashMap<>();
+
+        if (!keyword.isEmpty()) {
+            options.put("keyword", keyword);
+        }
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString("auth_token", null);
 
@@ -122,6 +132,6 @@ public class Fragment_product_admin extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        fetchProducts(new HashMap<>());
+        fetchProducts("");
     }
 }

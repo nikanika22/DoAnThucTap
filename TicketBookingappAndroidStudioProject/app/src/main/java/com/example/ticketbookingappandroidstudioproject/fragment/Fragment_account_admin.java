@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,33 +58,32 @@ public class Fragment_account_admin extends Fragment {
         adapter = new MyAccountAdapterAdmin(getActivity(), R.layout.item_account_admin, AccountList);
         listView.setAdapter(adapter);
 
-        fetchAccounts(new HashMap<>());
+        fetchAccounts("");
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                String Query = edtSearch.getText().toString().trim();
-                Map<String, String> options = new HashMap<>();
-                if (!Query.isEmpty()) {
-                    options.put("full_name", Query);
-                }
-                fetchAccounts(options);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keyword = s.toString().trim();
+                fetchAccounts(keyword);
             }
         });
-        View.OnClickListener genreClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Button clickedButton = (Button) v;
-                String name = clickedButton.getText().toString();
-                Map<String, String> options = new HashMap<>();
-                options.put("full_name", name);
-                fetchAccounts(options);
-            }
-        };
+
         return view;
     }
 
-    private void fetchAccounts(Map<String, String> options) {
+    private void fetchAccounts(String keyword) {
+        Map<String, String> options = new HashMap<>();
+
+        if (!keyword.isEmpty()) {
+            options.put("keyword", keyword);
+        }
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString("auth_token", null);
 
@@ -118,6 +119,6 @@ public class Fragment_account_admin extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        fetchAccounts(new HashMap<>());
+        fetchAccounts("");
     }
 }
