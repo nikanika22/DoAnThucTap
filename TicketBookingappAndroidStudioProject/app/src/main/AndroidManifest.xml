@@ -19,6 +19,12 @@
             android:name=".view.OrderDetailAdminActivity"
             android:exported="false" />
         <activity
+            android:name=".view.AddShowtimeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.UpdateShowtimeActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.UpdateProductActivity"
             android:exported="false" />
         <activity

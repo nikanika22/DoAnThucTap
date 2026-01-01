@@ -6,11 +6,13 @@ import com.example.ticketbookingappandroidstudioproject.data.MoviesData;
 import com.example.ticketbookingappandroidstudioproject.data.OrdersData;
 import com.example.ticketbookingappandroidstudioproject.data.ProductsData;
 import com.example.ticketbookingappandroidstudioproject.data.ScreensData;
+import com.example.ticketbookingappandroidstudioproject.data.ShowtimesData;
 import com.example.ticketbookingappandroidstudioproject.model.Account;
 import com.example.ticketbookingappandroidstudioproject.model.Movie;
 import com.example.ticketbookingappandroidstudioproject.model.Order;
 import com.example.ticketbookingappandroidstudioproject.model.Product;
 import com.example.ticketbookingappandroidstudioproject.model.Screen;
+import com.example.ticketbookingappandroidstudioproject.model.ShowTime;
 import com.example.ticketbookingappandroidstudioproject.model.LoginData;
 import com.example.ticketbookingappandroidstudioproject.model.LoginRequest;
 import com.example.ticketbookingappandroidstudioproject.model.RegisterData;
@@ -106,5 +108,18 @@ public interface ApiService {
     Call<OrdersData> getAllOrders(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
 
     @PUT("orders/{id}")
-    Call<ApiResponse> updateOrder(@Header("Authorization") String authToken, @Path("id") int orderId, @Body Order order);
+    Call<ApiResponse> updateStatusOrder(@Header("Authorization") String authToken, @Path("id") int orderId, @Body String status);
+
+    // Showtime endpoints
+    @GET("showtimes")
+    Call<ShowtimesData> getShowtimes(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
+
+    @POST("showtimes")
+    Call<ApiResponse> addShowtime(@Header("Authorization") String authToken, @Body ShowTime showtime);
+
+    @DELETE("showtimes/{id}")
+    Call<Void> deleteShowtime(@Header("Authorization") String authToken, @Path("id") int showtimeId);
+
+    @PUT("showtimes/{id}")
+    Call<ApiResponse> updateShowtime(@Header("Authorization") String authToken, @Path("id") int showtimeId, @Body ShowTime showtime);
 }

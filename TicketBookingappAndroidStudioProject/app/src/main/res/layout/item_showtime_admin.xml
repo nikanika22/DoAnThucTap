@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/txtMovieName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Tên Phim"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnEditShowtime"
+        android:layout_marginEnd="8dp"/>
+
+    <TextView
+        android:id="@+id/txtShowtime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="09:00 - 11:30"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieName"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="4dp"/>
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="23/12/2025"
+        android:textSize="13sp"
+        android:textColor="@android:color/darker_gray"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@id/txtShowtime"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="2dp"/>
+
+    <TextView
+        android:id="@+id/txtScreen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Screen 1 · IMAX"
+        android:textSize="13sp"
+        android:textColor="@android:color/darker_gray"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@id/txtDate"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="2dp"/>
+
+    <TextView
+        android:id="@+id/txtPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="80.000đ"
+        android:textSize="13sp"
+        android:textColor="#E91E63"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/txtScreen"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="4dp"/>
+
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OPEN"
+        android:textSize="12sp"
+        android:textColor="@android:color/holo_green_dark"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="2dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/txtScreen"
+        app:layout_constraintStart_toEndOf="@id/txtPrice"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"/>
+
+    <ImageView
+        android:id="@+id/btnEditShowtime"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/icon_updatee"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnDeleteShowtime"
+        android:layout_marginEnd="16dp"/>
+
+    <ImageView
+        android:id="@+id/btnDeleteShowtime"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/icon_bin"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
