@@ -8,7 +8,7 @@ public class Seat implements Serializable {
     @SerializedName("id")
     private int id;
     @SerializedName("screen_id")
-    private int screenId;           // screen_id - khớp với database
+    private Integer screenId;           // screen_id - khớp với database
     @SerializedName("row_label")
     private String rowLabel;        // row_label (A, B, C...) - khớp với database
     @SerializedName("seat_number")

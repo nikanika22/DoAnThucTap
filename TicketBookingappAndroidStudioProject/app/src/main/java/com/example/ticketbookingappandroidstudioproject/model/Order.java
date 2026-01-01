@@ -11,17 +11,17 @@ public class Order implements Serializable {
     @SerializedName("channel")
     private String channel;         // WEB, POS
     @SerializedName("account_id")
-    private int accountId;          // ID khách hàng (nullable)
+    private Integer accountId;          // ID khách hàng (nullable)
     @SerializedName("cashier_id")
-    private int cashierId;          // ID nhân viên thu ngân (nullable)
+    private Integer cashierId;          // ID nhân viên thu ngân (nullable)
     @SerializedName("showtime_id")
-    private int showtimeId;         // ID suất chiếu
+    private Integer showtimeId;         // ID suất chiếu
     @SerializedName("status")
     private String status;          // INIT, PAID, CANCELLED
     @SerializedName("payment_method")
     private String paymentMethod;   // CASH, CARD, EWALLET (nullable)
     @SerializedName("total_amount")
-    private int totalAmount;        // Tổng tiền
+    private Integer totalAmount;        // Tổng tiền
 
     private Account account;
     private ShowTime showtime;

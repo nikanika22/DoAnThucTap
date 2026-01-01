@@ -9,9 +9,9 @@ public class ShowTime implements Serializable {
     @SerializedName("id")
     private int id;
     @SerializedName("movie_id")
-    private int movieId;            // movie_id - khớp với database
+    private Integer movieId;            // movie_id - khớp với database
     @SerializedName("screen_id")
-    private int screenId;           // screen_id - khớp với database
+    private Integer screenId;           // screen_id - khớp với database
     @SerializedName("start_at")
     private Date startAt;           // start_at (datetime) - khớp với database
     @SerializedName("end_at")

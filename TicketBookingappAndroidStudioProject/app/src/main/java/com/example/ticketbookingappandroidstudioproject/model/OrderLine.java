@@ -8,19 +8,19 @@ public class OrderLine implements Serializable {
     @SerializedName("id")
     private int id;
     @SerializedName("order_id")
-    private int orderId;
+    private Integer orderId;
     @SerializedName("item_id")
-    private int itemId;
+    private Integer itemId;
     @SerializedName("item_type")
     private String itemType; // TICKET, PRODUCT
     @SerializedName("seat_id")
-    private int seatId;
+    private Integer seatId;
     @SerializedName("quantity")
     private int quantity;
     @SerializedName("unit_price")
     private double unitPrice;
     @SerializedName("line_total")
-    private int lineTotal;
+    private Integer lineTotal;
 
     private Seat seat;
     private Product product;

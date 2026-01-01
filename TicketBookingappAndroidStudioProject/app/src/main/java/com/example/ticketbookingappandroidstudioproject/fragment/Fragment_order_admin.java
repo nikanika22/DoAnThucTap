@@ -63,7 +63,7 @@ public class Fragment_order_admin extends Fragment {
         adapter = new MyOrderAdapterAdmin(getActivity(), R.layout.item_order_admin, OrderList);
         listView.setAdapter(adapter);
 
-        fetchOrders(new HashMap<>());
+        fetchOrders("");
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -75,7 +75,7 @@ public class Fragment_order_admin extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 String keyword = s.toString().trim();
-                fetchOrders(new HashMap<>());
+                fetchOrders(keyword);
             }
         });
 
@@ -84,9 +84,7 @@ public class Fragment_order_admin extends Fragment {
             public void onClick(View v) {
                 Button clickedButton = (Button) v;
                 String status = clickedButton.getText().toString();
-                Map<String, String> options = new HashMap<>();
-                options.put("status", status);
-                fetchOrders(options);
+                fetchOrders(status);
             }
         };
 
@@ -97,7 +95,13 @@ public class Fragment_order_admin extends Fragment {
         return view;
     }
 
-    private void fetchOrders(Map<String, String> options) {
+    private void fetchOrders(String keyword) {
+        Map<String, String> options = new HashMap<>();
+
+        if (!keyword.isEmpty()) {
+            options.put("keyword", keyword);
+        }
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString("auth_token", null);
 
@@ -133,6 +137,6 @@ public class Fragment_order_admin extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        fetchOrders(new HashMap<>());
+        fetchOrders("");
     }
 }
