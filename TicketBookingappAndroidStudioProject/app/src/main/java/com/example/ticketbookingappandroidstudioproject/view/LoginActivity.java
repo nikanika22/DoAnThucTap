@@ -39,6 +39,18 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Setup toolbar with back button
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                getSupportActionBar().setTitle("Đăng Nhập");
+            }
+        }
+
         control();
         event();
     }
@@ -59,7 +71,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void sendLoginDetails() {
-        LoginRequest loginRequest = new LoginRequest(emailEditText.getText().toString(), passwordEditText.getText().toString());
+        LoginRequest loginRequest = new LoginRequest(emailEditText.getText().toString(),
+                passwordEditText.getText().toString());
 
         ApiService.apiService.sendLoginRequest(loginRequest).enqueue(new Callback<LoginData>() {
             @Override
@@ -71,7 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                             String userRole = loginData.getData().getAccount().getRole();
 
                             // Save the token and role
-                            SharedPreferences sharedPreferences = getSharedPreferences("YourAppPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = getSharedPreferences("YourAppPrefs",
+                                    Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("auth_token", loginData.getData().getToken());
                             editor.putString("user_role", userRole);
@@ -86,7 +100,9 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login failed: Invalid data", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(LoginActivity.this, "Login failed: " + (loginData != null ? loginData.getMessage() : "Invalid response"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,
+                                "Login failed: " + (loginData != null ? loginData.getMessage() : "Invalid response"),
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -97,5 +113,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

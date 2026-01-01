@@ -91,7 +91,6 @@ public class AddAccountActivity extends AppCompatActivity {
                         Toast.makeText(AddAccountActivity.this, "Failed to add account: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ApiResponse> call, Throwable t) {
                     Toast.makeText(AddAccountActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();

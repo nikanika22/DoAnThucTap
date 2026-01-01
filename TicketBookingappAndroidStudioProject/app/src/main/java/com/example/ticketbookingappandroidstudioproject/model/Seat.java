@@ -1,14 +1,22 @@
 package com.example.ticketbookingappandroidstudioproject.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Seat implements Serializable {
+    @SerializedName("id")
     private int id;
-    private String row;
-    private int number;
-    private String type;
-    private String status;
+    @SerializedName("price")
     private double price;
+    @SerializedName("row")
+    private String row;
+    @SerializedName("number")
+    private int number;
+    @SerializedName("type")
+    private String type;
+    @SerializedName("status")
+    private String status;
     public Seat()
     {
         this.status="available";

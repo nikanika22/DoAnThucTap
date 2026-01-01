@@ -45,6 +45,18 @@ public class ShowTimesActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Setup toolbar with back button
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                getSupportActionBar().setTitle("Chọn Xuất Chiếu");
+            }
+        }
+
         int movieId = getIntent().getIntExtra("MOVIE_ID", -1);
         String moviesTitle = getIntent().getStringExtra("MOVIE_TITLE"); // ← FIX: Dùng getIntent()
 
@@ -58,27 +70,58 @@ public class ShowTimesActivity extends AppCompatActivity {
     }
 
     private void loadShowTimes(int movieId) {
-        Toast.makeText(this, "Dang tải...", Toast.LENGTH_SHORT).show();
-        ApiService.apiService.getShowtimesByMovieId(movieId).enqueue(new Callback<ShowTimesData>() {
+        android.util.Log.d("ShowTimes", "Loading showtimes for movie ID: " + movieId);
+        Toast.makeText(this, "Đang tải...", Toast.LENGTH_SHORT).show();
+
+        // Lấy token
+        android.content.SharedPreferences prefs = getSharedPreferences("YourAppPrefs", MODE_PRIVATE);
+        String token = prefs.getString("auth_token", null);
+
+        if (token == null || token.isEmpty()) {
+            Toast.makeText(this, "Vui lòng đăng nhập lại", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
+        String bearerToken = "Bearer " + token;
+        ApiService.apiService.getShowtimesByMovieId(bearerToken, movieId).enqueue(new Callback<ShowTimesData>() {
             @Override
             public void onResponse(Call<ShowTimesData> call, Response<ShowTimesData> response) {
+                android.util.Log.d("ShowTimes", "Response code: " + response.code());
+
                 if (response.isSuccessful() && response.body() != null) {
+                    android.util.Log.d("ShowTimes", "Response successful");
                     List<ShowTime> showTimes = response.body().getShowtimes();
+
                     if (showTimes != null && !showTimes.isEmpty()) {
+                        android.util.Log.d("ShowTimes", "Found " + showTimes.size() + " showtimes");
                         List<ShowTimeItems> items = convertShowTimesWithHeader(showTimes);
                         adapter.updateData(items);
+                        Toast.makeText(ShowTimesActivity.this, "Đã tải " + showTimes.size() + " suất chiếu",
+                                Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ShowTimesActivity.this, "No showtimes found.", Toast.LENGTH_SHORT).show();
+                        android.util.Log.w("ShowTimes", "No showtimes in response");
+                        Toast.makeText(ShowTimesActivity.this, "Không có suất chiếu nào", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(ShowTimesActivity.this, "Failed to load showtimes: " + response.message(),
-                            Toast.LENGTH_SHORT);
+                    try {
+                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Unknown";
+                        android.util.Log.e("ShowTimes", "HTTP Error " + response.code() + ": " + errorBody);
+                        Toast.makeText(ShowTimesActivity.this,
+                                "Lỗi " + response.code() + ": " + response.message(),
+                                Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        android.util.Log.e("ShowTimes", "Error reading error body", e);
+                        Toast.makeText(ShowTimesActivity.this, "Failed to load showtimes: " + response.message(),
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<ShowTimesData> call, Throwable t) {
-                Toast.makeText(ShowTimesActivity.this, "Lỗi kết nối mạng: " + t.getMessage(), Toast.LENGTH_SHORT)
+                android.util.Log.e("ShowTimes", "Network failure", t);
+                Toast.makeText(ShowTimesActivity.this, "Lỗi kết nối mạng: " + t.getMessage(), Toast.LENGTH_LONG)
                         .show();
             }
         });
@@ -125,5 +168,11 @@ public class ShowTimesActivity extends AppCompatActivity {
 
         return items;
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

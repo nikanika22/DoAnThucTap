@@ -2,7 +2,10 @@ package com.example.ticketbookingappandroidstudioproject.api;
 
 import com.example.ticketbookingappandroidstudioproject.data.AccountsData;
 import com.example.ticketbookingappandroidstudioproject.data.ApiResponse;
+import com.example.ticketbookingappandroidstudioproject.data.CreateOrderRequest;
 import com.example.ticketbookingappandroidstudioproject.data.MoviesData;
+import com.example.ticketbookingappandroidstudioproject.data.MyTicketsResponse;
+import com.example.ticketbookingappandroidstudioproject.data.OrderResponse;
 import com.example.ticketbookingappandroidstudioproject.data.ScreensData;
 import com.example.ticketbookingappandroidstudioproject.data.SeatMapResponse;
 import com.example.ticketbookingappandroidstudioproject.data.ShowTimesData;
@@ -32,66 +35,75 @@ import retrofit2.http.QueryMap;
 
 public interface ApiService {
 
-    // http://127.0.0.1:8000/api/login
-    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-    ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8000/api/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-            .create(ApiService.class);
+        // http://127.0.0.1:8000/api/login
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        ApiService apiService = new Retrofit.Builder()
+                        .baseUrl("http://10.0.2.2:8000/api/")
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build()
+                        .create(ApiService.class);
 
-    @POST("login")
-    Call<LoginData> sendLoginRequest(@Body LoginRequest loginRequest);
+        @POST("login")
+        Call<LoginData> sendLoginRequest(@Body LoginRequest loginRequest);
 
-    @POST("register")
-    Call<RegisterData> sendRegisterRequest(@Body RegisterRequest registerRequest);
+        @POST("register")
+        Call<RegisterData> sendRegisterRequest(@Body RegisterRequest registerRequest);
 
-    @GET("/info")
-    Call<ApiResponse> getInfo(@Header("Authorization") String authToken);
+        @GET("/info")
+        Call<ApiResponse> getInfo(@Header("Authorization") String authToken);
 
-    @GET("movies")
-    Call<MoviesData> getMovies(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
+        @GET("movies")
+        Call<MoviesData> getMovies(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
 
-    @POST("movies")
-    Call<ApiResponse> addMovie(@Header("Authorization") String authToken, @Body Movie movie);
+        @POST("movies")
+        Call<ApiResponse> addMovie(@Header("Authorization") String authToken, @Body Movie movie);
 
-    @DELETE("movies/{id}")
-    Call<Void> deleteMovie(@Header("Authorization") String authToken, @Path("id") int movieId);
+        @DELETE("movies/{id}")
+        Call<Void> deleteMovie(@Header("Authorization") String authToken, @Path("id") int movieId);
 
-    @PUT("movies/{id}")
-    Call<ApiResponse> updateMovie(@Header("Authorization") String authToken, @Path("id") int movieId,
-            @Body Movie movie);
+        @PUT("movies/{id}")
+        Call<ApiResponse> updateMovie(@Header("Authorization") String authToken, @Path("id") int movieId,
+                        @Body Movie movie);
 
-    @DELETE("screens/{id}")
-    Call<Void> deleteScreen(@Header("Authorization") String authToken, @Path("id") int screenId);
+        @DELETE("screens/{id}")
+        Call<Void> deleteScreen(@Header("Authorization") String authToken, @Path("id") int screenId);
 
-    @PUT("screens/{id}")
-    Call<ApiResponse> updateScreen(@Header("Authorization") String authToken, @Path("id") int screenId,
-            @Body Screen screen);
+        @PUT("screens/{id}")
+        Call<ApiResponse> updateScreen(@Header("Authorization") String authToken, @Path("id") int screenId,
+                        @Body Screen screen);
 
-    @GET("screens")
-    Call<ScreensData> getScreens(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
+        @GET("screens")
+        Call<ScreensData> getScreens(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
 
-    @POST("screens")
-    Call<ApiResponse> addScreen(@Header("Authorization") String authToken, @Body Screen screen);
+        @POST("screens")
+        Call<ApiResponse> addScreen(@Header("Authorization") String authToken, @Body Screen screen);
 
-    @DELETE("accounts/{id}")
-    Call<Void> deleteAccount(@Header("Authorization") String authToken, @Path("id") int accountId);
+        @DELETE("accounts/{id}")
+        Call<Void> deleteAccount(@Header("Authorization") String authToken, @Path("id") int accountId);
 
-    @PUT("accounts/{id}")
-    Call<ApiResponse> updateAccount(@Header("Authorization") String authToken, @Path("id") int accountId,
-            @Body Account account);
+        @PUT("accounts/{id}")
+        Call<ApiResponse> updateAccount(@Header("Authorization") String authToken, @Path("id") int accountId,
+                        @Body Account account);
 
-    @GET("accounts")
-    Call<AccountsData> getAccounts(@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
+        @GET("accounts")
+        Call<AccountsData> getAccounts(@Header("Authorization") String authToken,
+                        @QueryMap Map<String, String> options);
 
-    @POST("accounts")
-    Call<ApiResponse> addAccount(@Header("Authorization") String authToken, @Body Account account);
+        @POST("accounts")
+        Call<ApiResponse> addAccount(@Header("Authorization") String authToken, @Body Account account);
 
-    @GET("movies/{movieId}/showtimes")
-    Call<ShowTimesData> getShowtimesByMovieId(@Path("movieId") int movieId);
+        @GET("movies/{movieId}/showtimes")
+        Call<ShowTimesData> getShowtimesByMovieId(@Header("Authorization") String token, @Path("movieId") int movieId);
 
-    @GET("showtimes/{showtime_id}/seat-map")
-    Call<SeatMapResponse> getSeatMap(@Header("Authorization") String authToken, @Path("showtime_id") int showtimeId);
+        @GET("showtimes/{showtime_id}/seat-map")
+        Call<SeatMapResponse> getSeatMap(@Header("Authorization") String authToken,
+                        @Path("showtime_id") int showtimeId);
 
+        @POST("orders")
+        Call<OrderResponse> createOrder(
+                        @Header("Authorization") String token,
+                        @Body CreateOrderRequest request);
+
+        @GET("orders")
+        Call<MyTicketsResponse> getMyTickets(@Header("Authorization") String token);
 }

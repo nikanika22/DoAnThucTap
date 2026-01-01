@@ -20,6 +20,7 @@ import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_accoun
 import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_movie;
 import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_movie_admin;
 import com.example.ticketbookingappandroidstudioproject.fragment.Fragment_screen_admin;
+import com.example.ticketbookingappandroidstudioproject.fragment.My_ticket;
 import com.example.ticketbookingappandroidstudioproject.model.Account;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,10 +75,9 @@ public class MainActivity extends AppCompatActivity {
             headerAdmin.setVisibility(View.GONE);
             bottomBarCustomer.setVisibility(View.VISIBLE);
             bottomBarAdmin.setVisibility(View.GONE);
-
             findViewById(R.id.tabHome).setOnClickListener(v -> loadFragment(new Fragment_movie()));
             findViewById(R.id.tabProfile).setOnClickListener(v -> loadFragment(new Fragment_account()));
-
+            findViewById(R.id.tabMyticket).setOnClickListener(v->loadFragment(new My_ticket()));
             loadFragment(new Fragment_movie());
         }
     }
